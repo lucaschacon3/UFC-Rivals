@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Sonic Extra Bold';
+    src: url('../fonts/sonic-extra-bold-bt.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sonic-text {
+    font-family: 'Sonic Extra Bold', sans-serif;
+    font-size: 2rem;
+    color: aqua;
+}
