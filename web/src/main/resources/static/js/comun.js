@@ -6,6 +6,7 @@ function onPageLoad() {
 function menuToggleHeader() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
+    const img_toggle = document.getElementById('img_toggle');
 
 
     hamburger.addEventListener('click', () => {
@@ -13,6 +14,7 @@ function menuToggleHeader() {
         navMenu.classList.toggle('opacity-0');
         navMenu.classList.toggle('opacity-100');
         navMenu.classList.toggle('translate-x-0');
+        img_toggle.classList.toggle('-rotate-90');
     })
 }
 function setRandomPhrase() {
