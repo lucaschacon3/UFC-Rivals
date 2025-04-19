@@ -5,8 +5,19 @@
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<div class="h-[75vh]">
-</div>
+<div th:replace="~{fragments/preloader :: preloader}"></div>
+
+    <div class="p-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div th:each="fighter : ${fighters}" class="border p-4 rounded shadow hover:shadow-lg transition">
+                <img th:src="@{${fighter.image}}" alt="Image" class="w-full h-120 object-cover mb-4">
+                <h2 class="text-xl font-semibold" th:text="${fighter.nickname}"></h2>
+                <p th:text="${fighter.name + ' ' + fighter.surname}"></p>
+                <p class="text-sm text-gray-500" th:text="${fighter.nationality}"></p>
+            </div>
+        </div>
+    </div>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
