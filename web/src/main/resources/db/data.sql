@@ -26,7 +26,24 @@ INSERT INTO fighter (
       ('Max', 'Holloway', 'Blessed', 'USA', 32, 145.0, 1.80, 69.0, 32, 25, 12, 2, 11, 7, 1, 0, 6, 0, 12, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2024-04/HOLLOWAY_MAX_L_04-13.png?itok=uIj6eZON'),
       ('Sean', 'O''Malley', 'Sugar', 'USA', 30, 135.0, 1.80, 72.0, 19, 17, 12, 1, 4, 1, 0, 0, 1, 1, 13, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/OMALLEY_SEAN_L_08-19.png?itok=myv3RIr7'),
       ('Charles', 'Oliveira', 'Do Bronx', 'Brazil', 34, 155.0, 1.78, 74.0, 36, 30, 9, 21, 0, 6, 2, 3, 1, 0, 14, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/OLIVEIRA_CHARLES_L_11-16.png?itok=VutZvq6g'),
-      ('Arman', 'Tsarukyan', 'Ahalkalakets', 'Armenia', 27, 155.0, 1.75, 72.0, 23, 21, 8, 5, 8, 2, 1, 0, 1, 0, 15, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/TSARUKYAN_ARMAN_L_01-18.png?itok=Tz_2H31H');
+      ('Arman', 'Tsarukyan', 'Ahalkalakets', 'Armenia', 27, 155.0, 1.75, 72.0, 23, 21, 8, 5, 8, 2, 1, 0, 1, 0, 15, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/TSARUKYAN_ARMAN_L_01-18.png?itok=Tz_2H31H'),
+      ('Brandon', 'Royval', 'Raw Dog', 'USA', 31, 125.0, 1.73, 69.0, 21, 15, 5, 4, 6, 6, 2, 1, 3, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ROYVAL_BRANDON_L_10-12.png?itok=fxaENIvA'),
+      ('Brandon', 'Moreno', 'The Assassin Baby', 'Mexico', 30, 125.0, 1.73, 66.0, 28, 20, 5, 10, 5, 6, 1, 1, 3, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-03/MORENO_BRANDON_L_03-29.png?itok=CnCVq4jp'),
+      ('Amir', 'Albazi', 'The Prince', 'Iraq', 30, 125.0, 1.73, 70.0, 17, 16, 4, 5, 7, 1, 0, 0, 0, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ALBAZI_AMIR_L_06-03.png?itok=SVW_IOIX'),
+      ('Kai', 'Kara-France', 'Don’t Blink', 'New Zealand', 30, 125.0, 1.70, 70.0, 34, 24, 10, 8, 6, 10, 3, 0, 7, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/KARA-FRANCE_KAI_L_08-17.png?itok=kP3IPaTE'),
+      ('Tatsuro', 'Taira', 'The Silent Assassin', 'Japan', 24, 125.0, 1.73, 71.0, 13, 13, 3, 9, 1, 0, 0, 0, 0, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/TAIRA_TATSURO_L_12-09.png?itok=7ZMye-uF'),
+      ('Manel', 'Kape', 'Starboy', 'Angola', 30, 125.0, 1.73, 74.0, 23, 17, 8, 5, 4, 6, 1, 1, 0, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-02/KAPE_MANEL_L_03-01.png?itok=O-xXM505'),
+      ('Alex', 'Perez', 'The Cannibal', 'USA', 31, 125.0, 1.68, 70.0, 30, 24, 5, 4, 15, 6, 2, 1, 2, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/PEREZ_ALEX_L_06-15.png?itok=LQbMSF9K'),
+      ('Asu', 'Almabayev', 'The Eagle', 'Kazakhstan', 28, 125.0, 1.70, 70.0, 21, 21, 8, 9, 4, 0, 0, 0, 1, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ALMABAYEV_ASU_L_06-15.png?itok=IfIz7Vfp'),
+      ('Steve', 'Erceg', 'The Natural', 'Australia', 31, 145.0, 1.75, 72.0, 11, 10, 1, 5, 4, 1, 0, 0, 1, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ERCEG_STEVEN_L_08-17.png?itok=cZopQQ03'),
+      ('Tagir', 'Ulanbekov', 'Undefeated', 'Russia', 31, 125.0, 1.70, 68.0, 17, 16, 4, 7, 5, 1, 0, 0, 0, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/7/ULANBEKOV_TAGIR_L_01-18.png?itok=RfKG_X9T'),
+      ('Tim', 'Elliott', 'The Tyrant', 'USA', 36, 125.0, 1.73, 69.0, 31, 18, 7, 5, 6, 12, 4, 1, 7, 1, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ELLIOTT_TIM_L_12-09.png?itok=yyC1ZwWt'),
+      ('Bruno', 'Silva', 'Blindado', 'Brazil', 33, 185.0, 1.85, 77.0, 28, 22, 8, 3, 11, 6, 1, 2, 0, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/SILVA_BRUNO_L_03-11.png?itok=52KcH1hl'),
+      ('Ramazan', 'Temirov', 'The Russian Hammer', 'Russia', 27, 185.0, 1.85, 75.0, 10, 10, 5, 2, 3, 0, 0, 0, 0, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2024-11/TEMIROV_RAMAZAN_L_10-12.png?itok=Z-w18ViB'),
+      ('Joshua', 'Van', 'Vanquish', 'USA', 29, 135.0, 1.75, 72.0, 10, 8, 3, 2, 3, 2, 1, 0, 2, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-03/VAN_JOSHUA_L_03-08.png?itok=S2sz1XEG'),
+      ('Kai', 'Asakura', 'Dynamite', 'Japan', 31, 135.0, 1.73, 72.0, 19, 16, 9, 4, 3, 3, 0, 1, 2, 0, NULL, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ASAKURA_KAI_L.png?itok=W83ifUTW');
+
+
 
 -- Inserción de peleadores favoritos por usuario
 INSERT INTO fav_fighters (id_user, id_fighter)

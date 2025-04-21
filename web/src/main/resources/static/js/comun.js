@@ -79,7 +79,7 @@ function rankingToggle() {
             el.classList.toggle('hidden', !expanded);
         });
 
-        this.textContent = expanded ? 'Ver menos' : 'Ver más';
+        this.textContent = expanded ? 'see less' : 'see more';
 
         if (!expanded) {
             window.scrollTo({ top: 0, behavior: 'smooth' });

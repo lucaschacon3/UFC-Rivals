@@ -25,6 +25,7 @@ public class Fighter {
     private float reach;
 
     private int total_fights;
+
     private int total_wins;
     private int wins_ko;
     private int wins_sub;
