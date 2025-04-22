@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FighterService {
@@ -19,21 +20,29 @@ public class FighterService {
         this.fighterRepository = fighterRepository;
     }
 
+    public List<Fighter> findByIdFighter(Integer id) {
+        return fighterRepository.findAllByIdFighter(id);
+    }
+
     public Page<Fighter> findAll(Pageable pageable) {
         return fighterRepository.findAll(pageable);
     }
 
+    public List<Fighter> findFightersByWeight(float weight) {
+        return fighterRepository.findAllByWeight(weight);
+    }
+
 
     public List<Fighter> findByRankingBetween() {
-        return fighterRepository.findByRankingBetween(0,15);
+        return fighterRepository.findByRankingBetween(0, 15);
     }
 
     public Page<Fighter> findFilteredAndSorted(String search, String sort, Pageable pageable) {
         Sort sortOrder = switch (sort) {
             case "weightAsc" -> Sort.by("weight").ascending();
             case "weightDesc" -> Sort.by("weight").descending();
-            case "total_wins" -> Sort.by("total_wins").descending();
-            case "wins_ko" -> Sort.by("wins_ko").descending();
+            case "totalWinsDesc" -> Sort.by("totalWins").descending();
+            case "winsKoDesc" -> Sort.by("winsKo").descending();
             default -> Sort.unsorted();
         };
 
@@ -46,5 +55,6 @@ public class FighterService {
             return fighterRepository.findAll(sortedPageable);
         }
     }
+
 
 }

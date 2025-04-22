@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class UFCRivalsController {
 
@@ -53,10 +55,39 @@ public class UFCRivalsController {
     }
 
     @GetMapping("/simulator")
-    public String simulator(Model model) {
-        model.addAttribute("page", "simulator");
+    public String showSimulator(Model model,
+                                @RequestParam(required = false) String category,
+                                @RequestParam(required = false) Integer fighter1Id,
+                                @RequestParam(required = false) Integer fighter2Id) {
+
+
+        // Filtrar peleadores por la categoría seleccionada
+        if (category != null) {
+            model.addAttribute("fighters", fighterService.findFightersByWeight(Float.parseFloat(category)));
+        }
+
+        // Obtener los peleadores seleccionados (si están seleccionados)
+        if (fighter1Id != null && fighter2Id != null) {
+            List<Fighter> fighter1List = fighterService.findByIdFighter(fighter1Id);
+            List<Fighter> fighter2List = fighterService.findByIdFighter(fighter2Id);
+
+            // Verificar que las listas no estén vacías
+            if (!fighter1List.isEmpty() && !fighter2List.isEmpty()) {
+                Fighter fighter1 = fighter1List.get(0); // Obtener el primer luchador de la lista
+                Fighter fighter2 = fighter2List.get(0); // Obtener el primer luchador de la lista
+
+                model.addAttribute("fighter1", fighter1);
+                model.addAttribute("fighter2", fighter2);
+            } else {
+                // Manejar el caso si no se encuentran luchadores
+                model.addAttribute("error", "No se encontraron los peleadores.");
+            }
+        }
+
         return "simulator";
     }
+
+
 
     @GetMapping("/user")
     public String user(Model model) {

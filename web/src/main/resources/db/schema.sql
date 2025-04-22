@@ -29,7 +29,7 @@ CREATE TABLE fighter
     losses_ko    INT         NOT NULL,
     losses_sub   INT         NOT NULL,
     losses_dec   INT         NOT NULL,
-    draws        INT         NOT NULL,
+    total_draws        INT         NOT NULL,
     ranking      INT,
     image        VARCHAR(255) NOT NULL
 );

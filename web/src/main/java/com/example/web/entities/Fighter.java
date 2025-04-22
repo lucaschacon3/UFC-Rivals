@@ -13,7 +13,8 @@ public class Fighter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_fighter;
+    @Column(name = "id_fighter")
+    private Integer idFighter;
 
     private String name;
     private String surname;
@@ -24,20 +25,35 @@ public class Fighter {
     private float height;
     private float reach;
 
-    private int total_fights;
+    @Column(name = "total_fights")
+    private int totalFights;
 
-    private int total_wins;
-    private int wins_ko;
-    private int wins_sub;
-    private int wins_dec;
+    @Column(name = "total_wins")
+    private int totalWins;
 
-    private int total_losses;
-    private int losses_ko;
-    private int losses_sub;
-    private int losses_dec;
+    @Column(name = "wins_ko")
+    private int winsKo;
 
-    private int draws;
+    @Column(name = "wins_sub")
+    private int winsSub;
+
+    @Column(name = "wins_dec")
+    private int winsDec;
+
+    @Column(name = "total_losses")
+    private int totalLosses;
+
+    @Column(name = "losses_ko")
+    private int lossesKo;
+
+    @Column(name = "losses_sub")
+    private int lossesSub;
+
+    @Column(name = "losses_dec")
+    private int lossesDec;
+
+    @Column(name = "total_draws")
+    private int totalDraws;
     private Integer ranking;
     private String image;
 }
-

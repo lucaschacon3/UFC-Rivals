@@ -21,9 +21,9 @@
                class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">weight ↑</a>
             <a th:href="@{/fighters(sort='weightDesc')}"
                class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">weight ↓</a>
-            <a th:href="@{/fighters(sort='total_wins')}"
+            <a th:href="@{/fighters(sort='totalWinsDesc')}"
                class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">wins</a>
-            <a th:href="@{/fighters(sort='wins_ko')}"
+            <a th:href="@{/fighters(sort='winsKoDesc')}"
                class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">KO</a>
         </div>
     </form>
@@ -48,12 +48,12 @@
 
                     <!-- Back Side -->
                     <div class="flip-card-back absolute w-full h-full bg-gray-100 border p-4 rounded shadow flex flex-col justify-center items-center text-center">
-                        <p>Wins: <span th:text="${fighter.total_wins}"></span></p>
-                        <p>Losses: <span th:text="${fighter.total_losses}"></span></p>
-                        <p>Draws: <span th:text="${fighter.draws}"></span></p>
-                        <p>Fights: <span th:text="${fighter.total_fights}"></span></p>
+                        <p>Wins: <span th:text="${fighter.totalWins}"></span></p>
+                        <p>Losses: <span th:text="${fighter.totalLosses}"></span></p>
+                        <p>Draws: <span th:text="${fighter.totalDraws}"></span></p>
+                        <p>Fights: <span th:text="${fighter.totalFights}"></span></p>
                         <p class="text-blue-600">% Victory:
-                            <span th:text="${(fighter.total_fights > 0) ? (fighter.total_wins * 100 / fighter.total_fights) + '%' : 'N/A'}"></span>
+                            <span th:text="${(fighter.totalFights > 0) ? (fighter.totalWins * 100 / fighter.totalFights) + '%' : 'N/A'}"></span>
                         </p>
                     </div>
 
@@ -62,22 +62,23 @@
         </div>
 
         <!-- Pagination Controls -->
-        <div class="flex justify-center mt-6 space-x-2">
+        <div class="flex flex-wrap justify-center mt-6 gap-2">
             <a th:href="@{/fighters(page=${currentPage - 1})}"
                th:if="${currentPage > 0}"
-               class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Previous</a>
+               class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">Previous</a>
 
             <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
                th:classappend="${i == currentPage} ? 'bg-[#E50F0F] text-white' : 'bg-gray-200'"
-               class="px-4 py-2 rounded cursor-pointer hover:bg-gray-300"
+               class="px-3 py-2 rounded cursor-pointer hover:bg-gray-300 text-sm"
                th:href="@{/fighters(page=${i})}">
-                <p th:text="${i + 1}"></p>
+                <span th:text="${i + 1}"></span>
             </a>
 
             <a th:href="@{/fighters(page=${currentPage + 1})}"
                th:if="${currentPage < totalPages - 1}"
-               class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Next</a>
+               class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">Next</a>
         </div>
+
     </div>
 </div>
 

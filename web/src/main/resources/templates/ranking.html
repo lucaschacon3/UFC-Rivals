@@ -26,12 +26,12 @@
                          class="w-full max-w-xs rounded-xl mx-auto">
 
                     <div class="space-y-2 text-lg flex flex-col items-center text-center">
-                        <p>Wins: <span th:text="${fighter.total_wins}"></span></p>
-                        <p>Losses: <span th:text="${fighter.total_losses}"></span></p>
-                        <p>Draws: <span th:text="${fighter.draws}"></span></p>
+                        <p>Wins: <span th:text="${fighter.totalWins}"></span></p>
+                        <p>Losses: <span th:text="${fighter.totalLosses}"></span></p>
+                        <p>Draws: <span th:text="${fighter.totalDraws}"></span></p>
                         <p class="text-blue-600">
                             % Victory:
-                            <span th:text="${(fighter.total_fights > 0) ? (fighter.total_wins * 100 / fighter.total_fights) + '%' : 'N/A'}"></span>
+                            <span th:text="${(fighter.totalFights > 0) ? (fighter.totalWins * 100 / fighter.totalFights) + '%' : 'N/A'}"></span>
                         </p>
                     </div>
 

@@ -14,5 +14,7 @@ public interface FighterRepository extends JpaRepository<Fighter, Integer> {
 
     Page<Fighter> findByNameContainingIgnoreCaseOrNicknameContainingIgnoreCase(String name, String nickname, Pageable pageable);
 
+    List<Fighter> findAllByIdFighter(Integer idFighter);
+    List<Fighter> findAllByWeight(float weight);
 }
 

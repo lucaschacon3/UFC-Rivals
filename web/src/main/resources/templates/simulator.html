@@ -6,9 +6,87 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div th:replace="~{fragments/preloader :: preloader}"></div>
-<div class="h-[75vh]">
-</div>
-<div th:replace="~{fragments/footer :: footer}"></div>
 
+<div class="min-h-screen flex flex-col items-center justify-start px-4 py-8">
+
+    <!-- Formulario de selección -->
+    <form method="get" action="#" class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+        <!-- Select para categorías -->
+        <select name="category"
+                class="px-4 pr-8 py-2 border w-full md:w-1/4 h-12 truncate whitespace-nowrap"
+                onchange="this.form.submit()">
+            <option value="" disabled selected>select weight</option>
+            <option th:value="${'125'}">Flyweight</option>
+            <option th:value="${'135'}">Bantamweight</option>
+            <option th:value="${'145'}">Featherweight</option>
+            <option th:value="${'155'}">Lightweight</option>
+            <option th:value="${'170'}">Welterweight</option>
+            <option th:value="${'185'}">Middleweight</option>
+            <option th:value="${'205'}">Light Heavyweight</option>
+            <option th:value="${'210'}">Heavyweight</option>
+        </select>
+
+        <!-- Select para peleador 1 -->
+        <select name="fighter1Id"
+                class="px-4 pr-8 py-2 border w-full md:w-1/4 h-12 truncate whitespace-nowrap"
+                required>
+            <option value="" disabled selected>select fighter</option>
+            <option th:each="fighter : ${fighters}"
+                    th:value="${fighter.idFighter}"
+                    th:text="${fighter.nickname}"></option>
+        </select>
+
+        <!-- Select para peleador 2 -->
+        <select name="fighter2Id"
+                class="px-4 pr-8 py-2 border w-full md:w-1/4 h-12 truncate whitespace-nowrap"
+                required>
+            <option value="" disabled selected>select fighter</option>
+            <option th:each="fighter : ${fighters}"
+                    th:value="${fighter.idFighter}"
+                    th:text="${fighter.nickname}"></option>
+        </select>
+
+        <!-- Botón de compra -->
+        <button type="submit"
+                class="w-full md:w-1/4 h-12 bg-[#E50F0F] text-white px-4 py-2">
+            Comprar
+        </button>
+    </form>
+
+
+    <!-- Comparación de peleadores -->
+    <div th:if="${fighter1 != null && fighter2 != null}" class="bg-white p-6 shadow-xl w-full max-w-6xl">
+        <h2 class="text-2xl mb-6 text-center">Fighter Comparison</h2>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Fighter 1 -->
+            <div class="w-full md:w-1/2 text-center border-2 border-gray p-4">
+                <img th:src="@{${fighter1.image}}" alt="Fighter 1 Image"
+                     class="w-48 h-70 object-cover mb-4 mx-auto block"/>
+                <h3 class="text-xl" th:text="${fighter1.nickname}"></h3>
+                <p th:text="${fighter1.name + ' ' + fighter1.surname}"></p>
+                <p th:text="'Weight: ' + ${fighter1.weight} + ' lbs'"></p>
+            </div>
+
+            <div class="flex items-center justify-center">
+                <h1 class="text-[#E50F0F] text-center text-4xl">VS</h1>
+            </div>
+
+            <!-- Fighter 2 -->
+            <div class="w-full md:w-1/2 text-center border-2 border-gray p-4">
+                <img th:src="@{${fighter2.image}}" alt="Fighter 1 Image"
+                     class="w-48 h-70 object-cover mb-4 mx-auto block"/>
+                <h3 class="text-xl" th:text="${fighter2.nickname}"></h3>
+                <p th:text="${fighter2.name + ' ' + fighter2.surname}"></p>
+                <p th:text="'Weight: ' + ${fighter2.weight} + ' lbs'"></p>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
