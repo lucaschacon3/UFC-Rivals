@@ -63,7 +63,7 @@ public class UFCRivalsController {
 
         // Filtrar peleadores por la categoría seleccionada
         if (category != null) {
-            model.addAttribute("fighters", fighterService.findFightersByWeight(Float.parseFloat(category)));
+            model.addAttribute("fighters", fighterService.findFightersByCategory(category));
         }
 
         // Obtener los peleadores seleccionados (si están seleccionados)

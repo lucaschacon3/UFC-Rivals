@@ -24,12 +24,14 @@ public class FighterService {
         return fighterRepository.findAllByIdFighter(id);
     }
 
-    public Page<Fighter> findAll(Pageable pageable) {
+    /*
+    * public Page<Fighter> findAll(Pageable pageable) {
         return fighterRepository.findAll(pageable);
     }
+    * */
 
-    public List<Fighter> findFightersByWeight(float weight) {
-        return fighterRepository.findAllByWeight(weight);
+    public List<Fighter> findFightersByCategory(String category) {
+        return fighterRepository.findAllByCategory(category);
     }
 
 

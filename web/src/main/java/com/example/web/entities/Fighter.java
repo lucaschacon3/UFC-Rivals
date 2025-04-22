@@ -25,6 +25,8 @@ public class Fighter {
     private float height;
     private float reach;
 
+    private String category;
+
     @Column(name = "total_fights")
     private int totalFights;
 
