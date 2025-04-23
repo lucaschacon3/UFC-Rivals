@@ -72,6 +72,13 @@
             <version>1.18.30</version> <!-- Usa la versión más reciente si puedes -->
             <scope>provided</scope>
         </dependency>
+        <!--JFreeChart -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.19</version>
+        </dependency>
+
     </dependencies>
 
     <build>

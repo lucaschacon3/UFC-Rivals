@@ -1,6 +1,7 @@
 package com.example.web.controllers;
 
 import com.example.web.entities.Fighter;
+import com.example.web.services.ChartService;
 import com.example.web.services.FighterService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,15 +10,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class UFCRivalsController {
 
     private final FighterService fighterService;
+    private final ChartService chartService;
 
-    public UFCRivalsController(FighterService fighterService) {
+    public UFCRivalsController(FighterService fighterService, ChartService chartService) {
         this.fighterService = fighterService;
+        this.chartService = chartService;
     }
 
     @GetMapping("/")
@@ -47,47 +53,44 @@ public class UFCRivalsController {
 
 
 
-    @GetMapping("/ranking")
-    public String ranking(Model model) {
-        model.addAttribute("page", "ranking");
-        model.addAttribute("fighters", fighterService.findByRankingBetween());
-        return "ranking";
-    }
-
     @GetMapping("/simulator")
     public String showSimulator(Model model,
                                 @RequestParam(required = false) String category,
                                 @RequestParam(required = false) Integer fighter1Id,
                                 @RequestParam(required = false) Integer fighter2Id) {
 
-
-        // Filtrar peleadores por la categoría seleccionada
         if (category != null) {
             model.addAttribute("fighters", fighterService.findFightersByCategory(category));
         }
 
-        // Obtener los peleadores seleccionados (si están seleccionados)
         if (fighter1Id != null && fighter2Id != null) {
             List<Fighter> fighter1List = fighterService.findByIdFighter(fighter1Id);
             List<Fighter> fighter2List = fighterService.findByIdFighter(fighter2Id);
 
-            // Verificar que las listas no estén vacías
             if (!fighter1List.isEmpty() && !fighter2List.isEmpty()) {
-                Fighter fighter1 = fighter1List.get(0); // Obtener el primer luchador de la lista
-                Fighter fighter2 = fighter2List.get(0); // Obtener el primer luchador de la lista
+                Fighter fighter1 = fighter1List.get(0);
+                Fighter fighter2 = fighter2List.get(0);
 
-                model.addAttribute("fighter1", fighter1);
-                model.addAttribute("fighter2", fighter2);
+                try {
+                    // Generar los gráficos y obtener las rutas relativas
+                    String chart1Path = chartService.generateRadarChart(fighter1, fighter2, "chart_" + fighter1.getIdFighter()+fighter2.getIdFighter() + ".png");
+
+
+                    // Agregar rutas de imagen al modelo
+                    model.addAttribute("chart", chart1Path);
+                    model.addAttribute("fighter1", fighter1);
+                    model.addAttribute("fighter2", fighter2);
+                } catch (IOException e) {
+                    model.addAttribute("error", "Error generando los gráficos.");
+                }
+
             } else {
-                // Manejar el caso si no se encuentran luchadores
                 model.addAttribute("error", "No se encontraron los peleadores.");
             }
         }
 
         return "simulator";
     }
-
-
 
     @GetMapping("/user")
     public String user(Model model) {
