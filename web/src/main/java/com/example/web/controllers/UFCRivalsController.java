@@ -51,7 +51,12 @@ public class UFCRivalsController {
         return "fighters";
     }
 
-
+    @GetMapping("/ranking")
+    public String ranking(Model model) {
+        model.addAttribute("page", "ranking");
+        model.addAttribute("fighters", fighterService.findByRankingBetween());
+        return "ranking";
+    }
 
     @GetMapping("/simulator")
     public String showSimulator(Model model,
