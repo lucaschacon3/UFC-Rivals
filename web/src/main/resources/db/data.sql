@@ -16,7 +16,7 @@ VALUES
 
     ('Jon', 'Jones', 'Bones', 'USA', 36, 205.0, 1.93, 84.5, 'Heavyweight', 29, 27, 10, 6, 11, 1, 0, 0, 1, 1, 2, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/JONES_JON_L_BELT_11-16.png?itok=V9GBsbVF'),
 
-    ('Ilia', 'Topuria', 'El Matador', 'Spain', 27, 145.0, 1.70, 69.0, 'Lightweight', 15, 15, 6, 5, 4, 0, 0, 0, 0, 0, 3, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-04/TOPURIA_ILIA_L.png?itok=oi3hU1f2'),
+    ('Ilia', 'Topuria', 'El Matador', 'Spain', 27, 155.0, 1.70, 69.0, 'Lightweight', 15, 15, 6, 5, 4, 0, 0, 0, 0, 0, 3, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-04/TOPURIA_ILIA_L.png?itok=oi3hU1f2'),
 
     ('Merab', 'Dvalishvili', 'The Machine', 'Georgia', 33, 135.0, 1.68, 66.0, 'Bantamweight', 21, 17, 3, 3, 11, 4, 0, 1, 3, 0, 4, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/7/DVALISHVILI_MERAB_L_BELT_01-18.png?itok=m3PprJKJ'),
 
@@ -34,7 +34,7 @@ VALUES
 
     ('Tom', 'Aspinall', 'No Time', 'UK', 31, 265.0, 1.96, 78.0, 'Heavyweight', 16, 14, 11, 2, 1, 2, 1, 1, 0, 0, 11, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ASPINALL_TOM_BELT_L_07-27.png?itok=GKLL6fSZ'),
 
-    ('Max', 'Holloway', 'Blessed', 'USA', 32, 145.0, 1.80, 69.0, 'Lightweight', 32, 25, 12, 2, 11, 7, 1, 0, 6, 0, 12, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2024-04/HOLLOWAY_MAX_L_04-13.png?itok=uIj6eZON'),
+    ('Max', 'Holloway', 'Blessed', 'USA', 32, 155.0, 1.80, 69.0, 'Lightweight', 32, 25, 12, 2, 11, 7, 1, 0, 6, 0, 12, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2024-04/HOLLOWAY_MAX_L_04-13.png?itok=uIj6eZON'),
 
     ('Sean', 'O''Malley', 'Sugar', 'USA', 30, 135.0, 1.80, 72.0, 'Bantamweight', 19, 17, 12, 1, 4, 1, 0, 0, 1, 1, 13, 'https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/OMALLEY_SEAN_L_08-19.png?itok=myv3RIr7'),
 

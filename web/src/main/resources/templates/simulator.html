@@ -2,10 +2,115 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <script th:if="${fighter1 != null and fighter2 != null}" th:inline="javascript">
+        /*<![CDATA[*/
+        window.addEventListener('load', function () {
+            const fighter1Label = /*[[${fighter1.nickname}]]*/ 'Fighter 1';
+            const fighter2Label = /*[[${fighter2.nickname}]]*/ 'Fighter 2';
+
+            const radarData = {
+                labels: [
+                    'Wins KO', 'Wins Sub', 'Wins Dec',
+                    'Losses KO', 'Losses Sub', 'Losses Dec',
+                    'Draws'
+                ],
+                datasets: [
+                    {
+                        label: fighter1Label,
+                        data: [
+                            /*[[${fighter1.winsKo ?: 0}]]*/,
+                            /*[[${fighter1.winsSub ?: 0}]]*/,
+                            /*[[${fighter1.winsDec ?: 0}]]*/,
+                            /*[[${fighter1.lossesKo ?: 0}]]*/,
+                            /*[[${fighter1.lossesSub ?: 0}]]*/,
+                            /*[[${fighter1.lossesDec ?: 0}]]*/,
+                            /*[[${fighter1.totalDraws ?: 0}]]*/
+                        ],
+                        backgroundColor: 'rgba(229, 15, 15, 0.2)',
+                        borderColor: 'rgba(229, 15, 15, 1)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: fighter2Label,
+                        data: [
+                            /*[[${fighter2.winsKo ?: 0}]]*/,
+                            /*[[${fighter2.winsSub ?: 0}]]*/,
+                            /*[[${fighter2.winsDec ?: 0}]]*/,
+                            /*[[${fighter2.lossesKo ?: 0}]]*/,
+                            /*[[${fighter2.lossesSub ?: 0}]]*/,
+                            /*[[${fighter2.lossesDec ?: 0}]]*/,
+                            /*[[${fighter2.totalDraws ?: 0}]]*/
+                        ],
+                        backgroundColor: 'rgba(8, 62, 124, 0.2)',
+                        borderColor: 'rgb(15,117,227)',
+                        borderWidth: 2
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'radar',
+                data: radarData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            suggestedMax: 12
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            };
+
+            new Chart(document.getElementById('fighterRadarChart'), config);
+
+        });
+        /*]]>*/
+
+        setTimeout(() => {
+            Swal.fire({
+                title: 'Save this fight?',
+                text: 'Would you like to save this fight for later?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#E50F0F',
+                cancelButtonColor: '#96979a',
+                confirmButtonText: 'Yes, save it!',
+                cancelButtonText: 'No, thanks',
+                customClass: {
+                    popup: 'rounded-2xl',
+                    title: 'text-lg ',
+                    confirmButton: 'px-4 py-2',
+                    cancelButton: 'px-4 py-2',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Saved!',
+                        text: 'This fight has been saved.',
+                        confirmButtonColor: '#E50F0F'
+                    });
+
+                    // la lógica real de guardar
+                }
+            });
+        }, 5000);
+
+    </script>
+
+
+
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<div th:replace="~{fragments/preloader :: preloader}"></div>
+<!--<div th:replace="~{fragments/preloader :: preloader}"></div>-->
+
 
 <div class="min-h-screen flex flex-col items-center justify-start px-4 py-8">
 
@@ -16,7 +121,7 @@
         <select name="category"
                 class="px-4 pr-8 py-2 border w-full md:w-1/4 h-12 truncate whitespace-nowrap"
                 onchange="this.form.submit()">
-            <option value="" disabled selected>select weight</option>
+            <option value="" disabled selected th:text="${category_selected}">select category</option>
             <option th:value="${'Flyweight'}">Flyweight</option>
             <option th:value="${'Bantamweight'}">Bantamweight</option>
             <option th:value="${'Featherweight'}">Featherweight</option>
@@ -50,7 +155,7 @@
 
         <!-- Botón de compra -->
         <button type="submit"
-                class="w-full md:w-1/4 h-12 bg-[#E50F0F] text-white px-4 py-2">
+                class="w-full md:w-1/4 h-12 bg-[#E50F0F] hover:bg-red-700 text-white px-4 py-2">
             fight
         </button>
     </form>
@@ -142,12 +247,11 @@
             </table>
         </div>
 
-        <!-- Graphic -->
-        <div class="row text-center pt-8 flex justify-center items-center">
-            <div class="col-md-6">
-                <img th:src="@{${chart}}" alt="fight graphic" class="img-fluid" />
-            </div>
+        <div class="w-full max-w-xl mx-auto mt-10" th:if="${fighter1 != null and fighter2 != null}">
+            <canvas id="fighterRadarChart"></canvas>
         </div>
+
+
 
 
 
@@ -180,6 +284,17 @@
         </div>
 
     </div>
+    <!--Modal-->
+    <div id="customConfirmModal" class="custom-modal-overlay hidden">
+        <div class="custom-modal">
+            <p class="text-lg font-medium mb-4">Would you like to save this fight?</p>
+            <div>
+                <button class="confirm-btn" id="confirmSaveBtn">Save</button>
+                <button class="cancel-btn" id="cancelSaveBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
 
 
 </div>

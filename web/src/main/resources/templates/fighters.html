@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
+
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
@@ -11,23 +12,35 @@
 <div class="min-h-screen flex flex-col items-center justify-start px-4 py-8">
     <!-- Search and Filter Controls -->
     <form method="get" action="#" class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-        <!-- Search box -->
-        <input type="text" name="search" placeholder="Seach fighter..."
-               th:value="${search}" class="px-4 py-2 border rounded w-full md:w-1/3">
 
         <!-- Sorting buttons -->
         <div class="flex flex-wrap gap-2">
             <a th:href="@{/fighters(sort='weightAsc')}"
-               class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">weight ↑</a>
+               class="px-3 py-2 bg-[#E50F0F] rounded text-white hover:bg-red-700 text-sm">weight ↑</a>
             <a th:href="@{/fighters(sort='weightDesc')}"
-               class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">weight ↓</a>
+               class="px-3 py-2 bg-[#E50F0F] rounded text-white hover:bg-red-700 text-sm">weight ↓</a>
             <a th:href="@{/fighters(sort='totalWinsDesc')}"
-               class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">wins</a>
+               class="px-3 py-2 bg-[#E50F0F] rounded text-white hover:bg-red-700 text-sm">wins</a>
             <a th:href="@{/fighters(sort='winsKoDesc')}"
-               class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">KO</a>
+               class="px-3 py-2 bg-[#E50F0F] rounded text-white hover:bg-red-700 text-sm">KO</a>
+        </div>
+        <!-- Search + Lupa -->
+        <div class="flex w-full md:w-2/5">
+            <input type="text" name="search" placeholder="Search fighter..."
+                   th:value="${search}" class="px-4 py-2 border border-r-0 rounded-l w-full" />
+            <button type="submit"
+                    class="px-4 py-2 bg-gray-200 border border-l-0 rounded-r hover:bg-gray-300 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+                </svg>
+            </button>
         </div>
     </form>
-    <div class="w-full max-w-6xl space-y-6 bg-white p-6 shadow-xl">
+    <!-- si esta vacio-->
+    <div th:if="${!fighters.isEmpty()}" class="w-full max-w-6xl space-y-6 bg-white p-6 shadow-xl">
+
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div th:each="fighter : ${fighters}" class="flip-card w-full h-[400px]">
                 <div class="flip-card-inner w-full h-full relative">
@@ -47,7 +60,18 @@
                     </div>
 
                     <!-- Back Side -->
-                    <div class="flip-card-back absolute w-full h-full bg-gray-100 border p-4 rounded shadow flex flex-col justify-center items-center text-center">
+                    <div class="flip-card-back absolute w-full h-full bg-gray-100 border p-4 rounded shadow flex flex-col justify-center items-center text-center relative">
+                        <!-- Favorite Star Checkbox in top-right corner -->
+                        <label class="absolute top-2 right-2 cursor-pointer z-10">
+                            <input type="checkbox" class="hidden peer" name="favorite" />
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-6 w-6 text-gray-400 peer-checked:text-yellow-400 transition-colors duration-300"
+                                 fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                        d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.869 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/>
+                            </svg>
+                        </label>
+
                         <p>Wins: <span th:text="${fighter.totalWins}"></span></p>
                         <p>Losses: <span th:text="${fighter.totalLosses}"></span></p>
                         <p>Draws: <span th:text="${fighter.totalDraws}"></span></p>
@@ -57,12 +81,13 @@
                         </p>
                     </div>
 
+
                 </div>
             </div>
         </div>
 
         <!-- Pagination Controls -->
-        <div class="flex flex-wrap justify-center mt-6 gap-2">
+        <div th:if="${search.isEmpty()}" class="flex flex-wrap justify-center mt-6 gap-2">
             <a th:href="@{/fighters(page=${currentPage - 1})}"
                th:if="${currentPage > 0}"
                class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">Previous</a>
@@ -78,8 +103,19 @@
                th:if="${currentPage < totalPages - 1}"
                class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">Next</a>
         </div>
-
     </div>
+    <div th:if="${fighters.isEmpty()} and ${search != null}" class="w-full md:w-1/2 mx-auto mt-6">
+        <div class="flex items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow" role="alert">
+            <svg class="fill-current w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M10 15a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-12a1 1 0 011 1v8a1 1 0 01-2 0V4a1 1 0 011-1z"/>
+            </svg>
+            <p class="text-sm">
+                No fighter found with the name "<span th:text="${search}"></span>".
+            </p>
+        </div>
+    </div>
+
+
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>

@@ -1,0 +1,16 @@
+<!-- templates/error/500.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>500 - Internal Server Error</title>
+  <head th:replace="~{fragments/head :: head}"></head>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+<div class="text-center">
+  <h1 class="text-6xl font-bold text-red-600">500</h1>
+  <p class="text-xl text-gray-700 mt-4">Internal Server Error</p>
+  <p class="mt-2 text-gray-500">Something went wrong on our end. Please try again later.</p>
+  <a th:href="@{/}" class="mt-6 inline-block text-blue-600 hover:underline">Back to home</a>
+</div>
+</body>
+</html>

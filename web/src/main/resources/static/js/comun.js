@@ -120,4 +120,4 @@ function setRandomPhrase() {
 }
 
 
-window.onload = onPageLoad;
+window.addEventListener('load', onPageLoad);

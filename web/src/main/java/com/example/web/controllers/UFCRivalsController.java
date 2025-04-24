@@ -19,11 +19,10 @@ import java.util.List;
 public class UFCRivalsController {
 
     private final FighterService fighterService;
-    private final ChartService chartService;
 
-    public UFCRivalsController(FighterService fighterService, ChartService chartService) {
+
+    public UFCRivalsController(FighterService fighterService) {
         this.fighterService = fighterService;
-        this.chartService = chartService;
     }
 
     @GetMapping("/")
@@ -65,6 +64,12 @@ public class UFCRivalsController {
                                 @RequestParam(required = false) Integer fighter2Id) {
 
         if (category != null) {
+            model.addAttribute("category_selected", category);
+        }else{
+            model.addAttribute("category_selected", "select category");
+        }
+
+        if (category != null) {
             model.addAttribute("fighters", fighterService.findFightersByCategory(category));
         }
 
@@ -76,18 +81,8 @@ public class UFCRivalsController {
                 Fighter fighter1 = fighter1List.get(0);
                 Fighter fighter2 = fighter2List.get(0);
 
-                try {
-                    // Generar los gráficos y obtener las rutas relativas
-                    String chart1Path = chartService.generateRadarChart(fighter1, fighter2, "chart_" + fighter1.getIdFighter()+fighter2.getIdFighter() + ".png");
-
-
-                    // Agregar rutas de imagen al modelo
-                    model.addAttribute("chart", chart1Path);
-                    model.addAttribute("fighter1", fighter1);
-                    model.addAttribute("fighter2", fighter2);
-                } catch (IOException e) {
-                    model.addAttribute("error", "Error generando los gráficos.");
-                }
+                model.addAttribute("fighter1", fighter1);
+                model.addAttribute("fighter2", fighter2);
 
             } else {
                 model.addAttribute("error", "No se encontraron los peleadores.");
