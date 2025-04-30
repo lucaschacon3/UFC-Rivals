@@ -1,8 +1,6 @@
 -- Inserción de usuarios
-INSERT INTO "user" (username, email, password, rol)
-VALUES ('john_doe', 'john.doe@example.com', 'password123', 'user'),
-       ('jane_doe', 'jane.doe@example.com', 'password123', 'user'),
-       ('admin', 'admin@example.com', 'adminpassword', 'admin');
+INSERT INTO user_app (username, email, password, rol)
+VALUES ('admin', 'admin@example.com', '$2a$10$92RJfN5tcDaTZqxJA.ndfumcE7xCR.CMP/7CpGOZk/kYfs/Uka5W6', 'admin');
 
 -- Inserción de peleadores
 INSERT INTO fighter (
@@ -194,16 +192,10 @@ VALUES
 
 -- Inserción de peleadores favoritos por usuario
 INSERT INTO fav_fighters (id_user, id_fighter)
-VALUES (1, 1), -- John Doe's favorite fighter: Conor McGregor
-       (1, 2), -- John Doe's favorite fighter: Khabib Nurmagomedov
-       (2, 3), -- Jane Doe's favorite fighter: Nate Diaz
-       (3, 1);
--- Admin's favorite fighter: Conor McGregor
+VALUES (1, 1); -- admin's favorite fighter: Conor McGregor
+
 
 -- Inserción de peleas favoritas simuladas
 INSERT INTO fav_fight (id_user, id_fighter1, id_fighter2, winner, percentage, method)
 VALUES (1, 1, 2, 1, 70.5,
-        'KO'),                           -- John Doe's favorite fight: Conor McGregor vs Khabib Nurmagomedov (McGregor wins by KO)
-       (2, 2, 3, 2, 60.3, 'Submission'), -- Jane Doe's favorite fight: Khabib vs Nate Diaz (Khabib wins by Submission)
-       (3, 1, 3, 1, 55.0,
-        'Decision'); -- Admin's favorite fight: Conor McGregor vs Nate Diaz (McGregor wins by Decision)
+        'KO');

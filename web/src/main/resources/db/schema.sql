@@ -1,5 +1,5 @@
 -- Tabla de usuarios (user)
-CREATE TABLE "user"
+CREATE TABLE user_app
 (
     id_user  INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE  NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE fav_fighters
     id_user    INT,
     id_fighter INT,
     PRIMARY KEY (id_user, id_fighter),
-    FOREIGN KEY (id_user) REFERENCES "user" (id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_user) REFERENCES user_app (id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter) REFERENCES fighter (id_fighter) ON DELETE CASCADE
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE fav_fight
     winner      INT, -- id del luchador ganador
     percentage  FLOAT,
     method      ENUM('KO', 'Submission', 'Decision'),
-    FOREIGN KEY (id_user) REFERENCES "user" (id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_user) REFERENCES user_app (id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter1) REFERENCES fighter (id_fighter) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter2) REFERENCES fighter (id_fighter) ON DELETE CASCADE,
     FOREIGN KEY (winner) REFERENCES fighter (id_fighter) ON DELETE SET NULL

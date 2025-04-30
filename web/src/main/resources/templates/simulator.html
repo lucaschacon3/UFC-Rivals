@@ -101,23 +101,24 @@
                 }
             });
         }, 5000);
+    </script>
+
+
+</head>
+<script>
+    // Se ejecuta solo cuando todo el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function () {
+        const fighter1Select = document.getElementById('fighter1Select');
+        const fighter2Select = document.getElementById('fighter2Select');
 
         function updateFighter2Options() {
-            // Obtener el ID del peleador seleccionado en el primer select
-            const fighter1Id = document.getElementById('fighter1Select').value;
-
-            // Obtener el select de peleador 2
-            const fighter2Select = document.getElementById('fighter2Select');
-
-            // Obtener todas las opciones del select de peleador 2
+            const fighter1Id = fighter1Select.value;
             const options = fighter2Select.querySelectorAll('option');
 
-            // Habilitar todas las opciones nuevamente
             options.forEach(option => {
                 option.disabled = false;
             });
 
-            // Deshabilitar la opción seleccionada en el peleador 1 en el select de peleador 2
             options.forEach(option => {
                 if (option.value === fighter1Id) {
                     option.disabled = true;
@@ -125,10 +126,10 @@
             });
         }
 
-    </script>
-
-
-</head>
+        // Ahora sí, solo se añade el listener cuando está todo cargado
+        fighter1Select.addEventListener('change', updateFighter2Options);
+    });
+</script>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div th:replace="~{fragments/preloader :: preloader}"></div>
@@ -160,7 +161,7 @@
             <select name="fighter1Id"
                     class="px-4 pr-8 py-2 border w-full h-12 truncate whitespace-nowrap"
                     required th:attr="disabled=${category_selected == 'select category'}"
-                    id="fighter1Select" onchange="updateFighter2Options()">
+                    id="fighter1Select">
                 <option value="" disabled selected>select fighter</option>
                 <option th:each="fighter : ${fighters}"
                         th:value="${fighter.idFighter}"

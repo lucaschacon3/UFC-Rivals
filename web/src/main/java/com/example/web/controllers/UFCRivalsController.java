@@ -2,11 +2,14 @@ package com.example.web.controllers;
 
 import com.example.web.entities.Fighter;
 import com.example.web.services.FighterService;
+import com.example.web.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -16,13 +19,46 @@ public class UFCRivalsController {
 
     private final FighterService fighterService;
 
-
     public UFCRivalsController(FighterService fighterService) {
         this.fighterService = fighterService;
+    }
+    @Autowired
+    private UserService userService;
+
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login"; // Página de login (HTML)
+    }
+
+    @GetMapping("/register")
+    public String registerPage() {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@RequestParam String username,
+                           @RequestParam String email,
+                           @RequestParam String password,
+                           @RequestParam String rol,
+                           Model model) {
+        try {
+            userService.registerUser(username, password, email, rol);  // Passing all parameters
+            return "redirect:/login";  // Redirecting to login after successful registration
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register";  // Returning error if registration fails
+        }
     }
 
     @GetMapping("/")
     public String home(Model model) {
+        model.addAttribute("page", "home");
+        return "home";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model) {
         model.addAttribute("page", "home");
         return "home";
     }
