@@ -1,9 +1,7 @@
 function onPageLoad() {
     setRandomPhrase()
     menuToggleHeader()
-    setRandomImages()
     setPreloader()
-    rankingToggle()
 }
 
 function setPreloader() {
@@ -17,41 +15,7 @@ function setPreloader() {
         }, 500); // da tiempo a la transición
     }, 300); // <-- ajusta este valor según lo que necesites
 }
-function setRandomImages() {
-    const images = [
-        '../img/img1.png',
-        '../img/img2.png',
-        '../img/img3.png',
-        '../img/img4.png',
-        '../img/img5.png',
-        '../img/img6.png',
-        '../img/img7.png',
-        '../img/img8.png',
-        '../img/img9.png',
-        '../img/img10.png',
-        '../img/img11.png',
-        '../img/img12.png',
-        '../img/img13.png',
-        '../img/img14.png',
-        '../img/img15.png',
 
-
-    ];
-    const elements = document.querySelectorAll('.img_random');
-    const usedIndexes = new Set();
-
-    elements.forEach(el => {
-        let randomIndex;
-
-        // Buscar un índice que no se haya usado aún
-        do {
-            randomIndex = Math.floor(Math.random() * images.length);
-        } while (usedIndexes.has(randomIndex) && usedIndexes.size < images.length);
-
-        usedIndexes.add(randomIndex);
-        el.style.backgroundImage = `url('${images[randomIndex]}')`;
-    });
-}
 function menuToggleHeader() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
@@ -67,25 +31,7 @@ function menuToggleHeader() {
     })
 }
 
-function rankingToggle() {
-    const toggleBtn = document.getElementById('toggle-btn');
-    let expanded = false;
 
-    toggleBtn.addEventListener('click', function () {
-        const extras = document.querySelectorAll('.extra-fighter');
-        expanded = !expanded;
-
-        extras.forEach(el => {
-            el.classList.toggle('hidden', !expanded);
-        });
-
-        this.textContent = expanded ? 'see less' : 'see more';
-
-        if (!expanded) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    });
-}
 function setRandomPhrase() {
     const phrases = [
         "I'm not here to take part, I'm here to take over. – Conor McGregor",

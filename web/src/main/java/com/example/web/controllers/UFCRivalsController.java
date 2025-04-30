@@ -1,7 +1,6 @@
 package com.example.web.controllers;
 
 import com.example.web.entities.Fighter;
-import com.example.web.services.ChartService;
 import com.example.web.services.FighterService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,9 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -96,5 +92,11 @@ public class UFCRivalsController {
     public String user(Model model) {
         model.addAttribute("page", "user");
         return "user";
+    }
+
+    @GetMapping("/favorites")
+    public String favorites(Model model) {
+        model.addAttribute("page", "user");
+        return "favorites";
     }
 }

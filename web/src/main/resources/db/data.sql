@@ -150,15 +150,15 @@ VALUES
 
     ('Marvin', 'Vettori', 'The Italian Dream', 'Italy', 30, 185.0, 1.83, 74.0, 'Middleweight', 26, 19, 2, 9, 8, 7, 0, 2, 5, 0, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-03/VETTORI_MARVIN_L_03-15.png?itok=fT6-Ivk4'),
 
-    ('Jiří', 'Procházka', 'Denisa', 'Czech Republic', 31, 205.0, 1.93, 80.0, 'Light Heavyweight', 33, 29, 25, 3, 1, 4, 2, 1, 1, 0, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/7/PROCHAZKA_JIRI_L_01-18.png?itok=LhCgFVUQ'),
+    ('Jiri', 'Prochazka', 'Denisa', 'Czech Republic', 31, 205.0, 1.93, 80.0, 'Light Heavyweight', 33, 29, 25, 3, 1, 4, 2, 1, 1, 0, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/7/PROCHAZKA_JIRI_L_01-18.png?itok=LhCgFVUQ'),
 
     ('Carlos', 'Ulberg', 'Ulberg', 'New Zealand', 33, 205.0, 1.93, 77.0, 'Light Heavyweight', 11, 9, 6, 0, 3, 2, 1, 0, 1, 0, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ULBERG_CARLOS_L_05-11.png?itok=Ya9m_BwW'),
 
     ('Jamahal', 'Hill', 'Sweet Dreams', 'USA', 32, 205.0, 1.93, 79.0, 'Light Heavyweight', 14, 12, 7, 0, 5, 2, 1, 0, 1, 0, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/HILL_JAMAHAL_L_01-18.png?itok=s5fMCvfw'),
 
-    ('Jan', 'Błachowicz', 'Prince of Cieszyn', 'Poland', 41, 205.0, 1.88, 78.0, 'Light Heavyweight', 39, 29, 9, 9, 11, 10, 2, 4, 4, 1, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-03/BLACHOWICZ_JAN_L_03-22.png?itok=TDS_PpCh'),
+    ('Jan', 'Blachowicz', 'Prince of Cieszyn', 'Poland', 41, 205.0, 1.88, 78.0, 'Light Heavyweight', 39, 29, 9, 9, 11, 10, 2, 4, 4, 1, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-03/BLACHOWICZ_JAN_L_03-22.png?itok=TDS_PpCh'),
 
-    ('Aleksandar', 'Rakić', 'Rakić', 'Austria', 32, 205.0, 1.96, 78.0, 'Light Heavyweight', 17, 14, 9, 1, 4, 3, 1, 0, 2, 0, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/RAKIC_ALEKSANDAR_L_10-26.png?itok=Es-YLUP9'),
+    ('Aleksandar', 'Rakic', 'Rakic', 'Austria', 32, 205.0, 1.96, 78.0, 'Light Heavyweight', 17, 14, 9, 1, 4, 3, 1, 0, 2, 0, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/RAKIC_ALEKSANDAR_L_10-26.png?itok=Es-YLUP9'),
 
     ('Khalil', 'Rountree Jr.', 'The War Horse', 'USA', 34, 205.0, 1.85, 76.5, 'Light Heavyweight', 19, 13, 8, 0, 5, 5, 2, 0, 3, 1, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ROUNTREE_KHALIL_L_12-09.png?itok=aXcnDWfh'),
 

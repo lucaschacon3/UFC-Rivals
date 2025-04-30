@@ -2,6 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <script>
+        function rankingToggle() {
+            const toggleBtn = document.getElementById('toggle-btn');
+            let expanded = false;
+
+            toggleBtn.addEventListener('click', function () {
+                const extras = document.querySelectorAll('.extra-fighter');
+                expanded = !expanded;
+
+                extras.forEach(el => {
+                    el.classList.toggle('hidden', !expanded);
+                });
+
+                this.textContent = expanded ? 'see less' : 'see more';
+
+                if (!expanded) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+        window.addEventListener('load', rankingToggle);
+    </script>
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
@@ -14,8 +36,8 @@
 
         <div th:each="fighter, iterStat : ${fighters}">
             <details
-                    th:class="${iterStat.index < 9} ? 'w-full bg-gray-100 shadow-md p-4' : 'w-full bg-gray-100 shadow-md p-4 extra-fighter hidden'">
-
+                    th:class="${iterStat.index < 9} ? 'w-full bg-gray-100 shadow-md p-4' : 'w-full bg-gray-100 shadow-md p-4 extra-fighter hidden'"
+                    th:attr="open=${iterStat.index == 0}">
                 <summary class="text-xl cursor-pointer">
                     <!-- Puedes usar un div interno para alinear si hace falta -->
                     <span th:text="${fighter.ranking} + '. ' + ${fighter.name} + ' ' + ${fighter.surname}"></span>

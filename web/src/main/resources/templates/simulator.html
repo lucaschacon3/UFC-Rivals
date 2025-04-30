@@ -102,14 +102,36 @@
             });
         }, 5000);
 
-    </script>
+        function updateFighter2Options() {
+            // Obtener el ID del peleador seleccionado en el primer select
+            const fighter1Id = document.getElementById('fighter1Select').value;
 
+            // Obtener el select de peleador 2
+            const fighter2Select = document.getElementById('fighter2Select');
+
+            // Obtener todas las opciones del select de peleador 2
+            const options = fighter2Select.querySelectorAll('option');
+
+            // Habilitar todas las opciones nuevamente
+            options.forEach(option => {
+                option.disabled = false;
+            });
+
+            // Deshabilitar la opción seleccionada en el peleador 1 en el select de peleador 2
+            options.forEach(option => {
+                if (option.value === fighter1Id) {
+                    option.disabled = true;
+                }
+            });
+        }
+
+    </script>
 
 
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<!--<div th:replace="~{fragments/preloader :: preloader}"></div>-->
+<div th:replace="~{fragments/preloader :: preloader}"></div>
 
 
 <div class="min-h-screen flex flex-col items-center justify-start px-4 py-8">
@@ -117,50 +139,56 @@
     <!-- Formulario de selección -->
     <form method="get" action="#" class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
         <!-- Select para categorías -->
-
-        <select name="category"
-                class="px-4 pr-8 py-2 border w-full md:w-1/4 h-12 truncate whitespace-nowrap"
-                onchange="this.form.submit()">
-            <option value="" disabled selected th:text="${category_selected}">select category</option>
-            <option th:value="${'Flyweight'}">Flyweight</option>
-            <option th:value="${'Bantamweight'}">Bantamweight</option>
-            <option th:value="${'Featherweight'}">Featherweight</option>
-            <option th:value="${'Lightweight'}">Lightweight</option>
-            <option th:value="${'Welterweight'}">Welterweight</option>
-            <option th:value="${'Middleweight'}">Middleweight</option>
-            <option th:value="${'Light Heavyweight'}">Light Heavyweight</option>
-            <option th:value="${'Heavyweight'}">Heavyweight</option>
-        </select>
-
+        <div class="w-full mb-4 md:w-1/4">
+            <select name="category"
+                    class="px-4 pr-8 py-2 border w-full h-12 truncate whitespace-nowrap"
+                    onchange="this.form.submit()">
+                <option value="" disabled selected th:text="${category_selected}">select category</option>
+                <option th:value="${'Flyweight'}">Flyweight</option>
+                <option th:value="${'Bantamweight'}">Bantamweight</option>
+                <option th:value="${'Featherweight'}">Featherweight</option>
+                <option th:value="${'Lightweight'}">Lightweight</option>
+                <option th:value="${'Welterweight'}">Welterweight</option>
+                <option th:value="${'Middleweight'}">Middleweight</option>
+                <option th:value="${'Light Heavyweight'}">Light Heavyweight</option>
+                <option th:value="${'Heavyweight'}">Heavyweight</option>
+            </select>
+        </div>
 
         <!-- Select para peleador 1 -->
-        <select name="fighter1Id"
-                class="px-4 pr-8 py-2 border w-full md:w-1/4 h-12 truncate whitespace-nowrap"
-                required>
-            <option value="" disabled selected>select fighter</option>
-            <option th:each="fighter : ${fighters}"
-                    th:value="${fighter.idFighter}"
-                    th:text="|${fighter.name} ${fighter.surname}|"></option>
-        </select>
+        <div class="w-full mb-4 md:w-1/4">
+            <select name="fighter1Id"
+                    class="px-4 pr-8 py-2 border w-full h-12 truncate whitespace-nowrap"
+                    required th:attr="disabled=${category_selected == 'select category'}"
+                    id="fighter1Select" onchange="updateFighter2Options()">
+                <option value="" disabled selected>select fighter</option>
+                <option th:each="fighter : ${fighters}"
+                        th:value="${fighter.idFighter}"
+                        th:text="|${fighter.name} ${fighter.surname}|"></option>
+            </select>
+        </div>
 
         <!-- Select para peleador 2 -->
-        <select name="fighter2Id"
-                class="px-4 pr-8 py-2 border w-full md:w-1/4 h-12 truncate whitespace-nowrap"
-                required>
-            <option value="" disabled selected>select fighter</option>
-            <option th:each="fighter : ${fighters}"
-                    th:value="${fighter.idFighter}"
-                    th:text="|${fighter.name} ${fighter.surname}|"></option>
-        </select>
+        <div class="w-full mb-4 md:w-1/4">
+            <select name="fighter2Id"
+                    class="px-4 pr-8 py-2 border w-full h-12 truncate whitespace-nowrap"
+                    required th:attr="disabled=${category_selected == 'select category'}"
+                    id="fighter2Select">
+                <option value="" disabled selected>select fighter</option>
+                <option th:each="fighter : ${fighters}"
+                        th:value="${fighter.idFighter}"
+                        th:text="|${fighter.name} ${fighter.surname}|"></option>
+            </select>
+        </div>
 
         <!-- Botón de comparar -->
-        <button type="submit"
-                class="w-full md:w-1/4 h-12 bg-[#E50F0F] hover:bg-red-700 text-white px-4 py-2">
-            fight
-        </button>
+        <div class="w-full md:w-1/4">
+            <button type="submit"
+                    class="w-full h-12 bg-[#E50F0F] hover:bg-red-700 text-white px-4 py-2">
+                fight
+            </button>
+        </div>
     </form>
-
-
     <!-- Comparación de peleadores -->
     <div th:if="${fighter1 != null && fighter2 != null}" class="bg-white p-6 shadow-xl w-full max-w-6xl">
         <h2 class="text-2xl mb-6 text-center">Fighter Comparison</h2>
@@ -196,8 +224,10 @@
                 <thead>
                 <tr class="bg-gray-100">
                     <th class="py-2 font-normal">Attribute</th>
-                    <th class="py-2 font-normal text-[#E50F0F]" th:text="${fighter1.name} + ' ' + ${fighter1.surname}"></th>
-                    <th class="py-2 font-normal text-blue-500" th:text="${fighter2.name} + ' ' + ${fighter2.surname}"></th>
+                    <th class="py-2 font-normal text-[#E50F0F]"
+                        th:text="${fighter1.name} + ' ' + ${fighter1.surname}"></th>
+                    <th class="py-2 font-normal text-blue-500"
+                        th:text="${fighter2.name} + ' ' + ${fighter2.surname}"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -252,9 +282,6 @@
         </div>
 
 
-
-
-
         <!-- Win Probability Bar -->
         <div class="mt-8 text-center" th:if="${fighter1.totalFights > 0 and fighter2.totalFights > 0}">
             <h3 class="text-xl mb-2">Estimated Win Probability</h3>
@@ -294,7 +321,6 @@
             </div>
         </div>
     </div>
-
 
 
 </div>

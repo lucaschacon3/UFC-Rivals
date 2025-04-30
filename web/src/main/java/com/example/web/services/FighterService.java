@@ -44,7 +44,11 @@ public class FighterService {
             case "weightAsc" -> Sort.by("weight").ascending();
             case "weightDesc" -> Sort.by("weight").descending();
             case "totalWinsDesc" -> Sort.by("totalWins").descending();
+            case "totalWinsAsc" -> Sort.by("totalWins").ascending();
             case "winsKoDesc" -> Sort.by("winsKo").descending();
+            case "winsKoAsc" -> Sort.by("winsKo").ascending();
+            case "winsSubDesc" -> Sort.by("winsSub").descending();
+            case "winsSubAsc" -> Sort.by("winsSub").ascending();
             default -> Sort.unsorted();
         };
 
