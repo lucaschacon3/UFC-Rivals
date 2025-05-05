@@ -47,13 +47,18 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <div th:replace="~{fragments/preloader :: preloader}"></div>
 
-<main class="overflow-hidden relative w-full h-full flex justify-center items-center h-full p-24">
+<main class="overflow-hidden relative w-full h-full flex justify-center items-center h-full p-24 mb-8">
     <!-- Imagen desenfocada -->
     <div class="absolute inset-0 z-0">
         <div class="w-full h-full img_random blur-sm"></div>
     </div>
     <div class="bg-white p-8 shadow-lg w-full max-w-sm relative z-10">
         <h2 class="text-2xl text-center mb-6">Login</h2>
+        <a href="/oauth2/authorization/google"
+           class="flex items-center justify-center gap-2 border border-gray-300 rounded px-4 py-2 mb-6 hover:shadow-md hover:bg-gray-50 transition-colors">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon" class="w-5 h-5">
+            <span class="text-sm text-gray-700 font-medium">Sign in with Google</span>
+        </a>
         <form action="/login" method="post">
             <div class="mb-4">
                 <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
@@ -65,17 +70,18 @@
                 <input type="password" id="password" name="password"
                        class="w-full mt-1 p-2 border border-gray-300" required>
             </div>
+
             <div class="flex items-center justify-between">
-                <button type="submit" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700">Login
-                </button>
-                <a href="/register" class="text-sm text-red-600 hover:underline">I don´t have an account</a>
-            </div>
-            <div th:if="${param.error}" class="text-red-600 text-sm mb-4">
-                Invalid username or password.
+                <button type="submit" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700">Login</button>
+                <a href="/register" class="text-sm text-red-600 hover:underline">I don’t have an account</a>
             </div>
 
+            <div th:if="${param.error}" class="text-red-600 text-sm mt-4">
+                Invalid username or password.
+            </div>
         </form>
     </div>
+
 </main>
 
 <!-- Pie de página -->

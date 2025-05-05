@@ -53,6 +53,10 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout=true")  // Redirect after logout
                         .permitAll()
                 )
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/user", true)
+                )
                 .userDetailsService(userDetailsService)  // Ensure that UserDetailsService is used
                 .csrf().disable();
 

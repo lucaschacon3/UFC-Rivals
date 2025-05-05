@@ -42,18 +42,14 @@
 <header th:replace="~{fragments/header :: header}"></header>
 
 <main class="max-w-4xl mx-auto py-10 px-4 text-gray-900 shadow-xl m-4 p-6">
-
     <h2 class="text-2xl mb-6">User favorites</h2>
     <div class="mb-4 bg-gray-100 rounded-lg shadow p-4">
         <a th:href="@{/favorites}" class="cursor-pointer text-lg font-medium flex items-center">
-            <!-- Icono de favoritos (corazón) -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z" />
-            </svg>
+            <!-- Icono de favoritos (estrella mejor definida) -->
+            <img class="mr-2" width="24" height="24" src="https://img.icons8.com/color/48/star--v1.png" alt="star--v1"/>
             Favorites
         </a>
     </div>
-
 
     <!-- Section 1: User Settings -->
     <form th:action="@{/user}" method="get" class="mb-10">
@@ -98,11 +94,18 @@
 
     </form>
 
+    <h2 class="text-2xl mb-6">Restricted Area</h2>
     <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
-        <summary class="cursor-pointer text-lg font-medium text-red-600">Delete Account</summary>
+        <summary class="cursor-pointer text-lg font-medium text-yellow-500 flex items-center gap-2">
+            <img width="24" height="24" src="https://img.icons8.com/emoji/48/warning-emoji.png" alt="warning-emoji"/>
+            Delete Account
+        </summary>
+
+
         <div class="mt-4">
             <p class="text-red-500 mb-2">Warning: This action is irreversible.</p>
-            <button class="delete-account bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Delete My Account</button>
+            <button class="delete-account bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Delete My Account
+            </button>
         </div>
     </details>
 
