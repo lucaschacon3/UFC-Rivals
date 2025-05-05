@@ -1,6 +1,6 @@
 package com.example.web.controllers;
 
-import com.example.web.entities.Fighter;
+import com.example.web.dtos.FighterDto;
 import com.example.web.services.FighterService;
 import com.example.web.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +70,8 @@ public class UFCRivalsController {
                                @RequestParam(defaultValue = "") String search,
                                @RequestParam(defaultValue = "") String sort) {
 
-        Page<Fighter> fightersPage = fighterService.findFilteredAndSorted(search, sort, PageRequest.of(page, size));
+        Page<FighterDto> fightersPage = fighterService.findFilteredAndSorted(search, sort, PageRequest.of(page, size));
+
 
         model.addAttribute("fighters", fightersPage.getContent());
         model.addAttribute("currentPage", page);
@@ -106,12 +107,12 @@ public class UFCRivalsController {
         }
 
         if (fighter1Id != null && fighter2Id != null) {
-            List<Fighter> fighter1List = fighterService.findByIdFighter(fighter1Id);
-            List<Fighter> fighter2List = fighterService.findByIdFighter(fighter2Id);
+            List<FighterDto> fighter1List = fighterService.findByIdFighter(fighter1Id);
+            List<FighterDto> fighter2List = fighterService.findByIdFighter(fighter2Id);
 
             if (!fighter1List.isEmpty() && !fighter2List.isEmpty()) {
-                Fighter fighter1 = fighter1List.get(0);
-                Fighter fighter2 = fighter2List.get(0);
+                FighterDto fighter1 = fighter1List.get(0);
+                FighterDto fighter2 = fighter2List.get(0);
 
                 model.addAttribute("fighter1", fighter1);
                 model.addAttribute("fighter2", fighter2);

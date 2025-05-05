@@ -89,17 +89,17 @@
                         </label>
                         <h2 class="text-gray-600 text-2xl text-center mb-4" th:text="|${fighter.name} ${fighter.surname}|"></h2>
                         <p class="text-lg font-medium text-gray-700 mb-2">Wins: <span
-                                class="font-semibold text-green-600" th:text="${fighter.totalWins}"></span></p>
+                                class="font-semibold text-green-600" th:text="${fighter.total_wins}"></span></p>
                         <p class="text-lg font-medium text-gray-700 mb-2">Losses: <span
-                                class="font-semibold text-red-600" th:text="${fighter.totalLosses}"></span></p>
+                                class="font-semibold text-red-600" th:text="${fighter.total_losses}"></span></p>
                         <p class="text-lg font-medium text-gray-700 mb-2">Draws: <span
-                                class="font-semibold text-yellow-600" th:text="${fighter.totalDraws}"></span></p>
+                                class="font-semibold text-yellow-600" th:text="${fighter.total_draws}"></span></p>
                         <p class="text-lg font-medium text-gray-700 mb-2">Fights: <span
-                                class="font-semibold text-gray-800" th:text="${fighter.totalFights}"></span></p>
+                                class="font-semibold text-gray-800" th:text="${fighter.total_fights}"></span></p>
 
                         <p class="text-lg font-medium text-blue-600 mb-2">Victory Percentage:
                             <span class="font-semibold"
-                                  th:text="${(fighter.totalFights > 0) ? (fighter.totalWins * 100 / fighter.totalFights) + '%' : 'N/A'}"></span>
+                                  th:text="${(fighter.total_fights > 0) ? (fighter.total_wins * 100 / fighter.total_fights) + '%' : 'N/A'}"></span>
                         </p>
                     </div>
                 </div>
