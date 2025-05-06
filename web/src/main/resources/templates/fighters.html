@@ -108,18 +108,18 @@
 
         <!-- Pagination Controls -->
         <div th:if="${search.isEmpty()}" class="flex flex-wrap justify-center mt-6 gap-2">
-            <a th:href="@{/fighters(page=${currentPage - 1})}"
+            <a th:href="@{/fighters(page=${currentPage - 1}, sort=${sort})}"
                th:if="${currentPage > 0}"
                class="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-sm">Previous</a>
 
             <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
                th:classappend="${i == currentPage} ? 'bg-[#E50F0F] text-white' : 'bg-gray-200'"
                class="px-3 py-2 cursor-pointer hover:bg-gray-300 text-sm"
-               th:href="@{/fighters(page=${i})}">
+               th:href="@{/fighters(page=${i}, sort=${sort})}">
                 <span th:text="${i + 1}"></span>
             </a>
 
-            <a th:href="@{/fighters(page=${currentPage + 1})}"
+            <a th:href="@{/fighters(page=${currentPage + 1}, sort=${sort})}"
                th:if="${currentPage < totalPages - 1}"
                class="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-sm">Next</a>
         </div>

@@ -1,32 +1,36 @@
 package com.example.web.controllers;
 
+import com.example.web.dtos.FavFightDto;
 import com.example.web.dtos.FighterDto;
 import com.example.web.dtos.UserAppDto;
+import com.example.web.repositories.FavFightRepository;
 import com.example.web.services.FighterService;
-import com.example.web.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.web.services.UserAppService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class UFCRivalsController {
 
-    private final FighterService fighterService;
 
-    public UFCRivalsController(FighterService fighterService) {
+    private final UserAppService userService;
+    private final FighterService fighterService;
+    private final FavFightRepository favFightRepository;
+
+
+    public UFCRivalsController(UserAppService userService, FighterService fighterService, FavFightRepository favFightRepository) {
+        this.userService = userService;
         this.fighterService = fighterService;
+        this.favFightRepository = favFightRepository;
     }
-    @Autowired
-    private UserService userService;
+
 
 
     @GetMapping("/login")
@@ -100,7 +104,13 @@ public class UFCRivalsController {
     public String showSimulator(Model model,
                                 @RequestParam(required = false) String category,
                                 @RequestParam(required = false) Integer fighter1Id,
-                                @RequestParam(required = false) Integer fighter2Id) {
+                                @RequestParam(required = false) Integer fighter2Id,
+                                @AuthenticationPrincipal UserAppDto userApp) {
+
+
+        if (userApp != null) {
+            model.addAttribute("id_user_app", userApp.getId_user_app());
+        }
 
         if (category != null) {
             model.addAttribute("category_selected", category);
@@ -130,6 +140,23 @@ public class UFCRivalsController {
 
         return "simulator";
     }
+
+
+    @PostMapping("/simulator/save")
+    @ResponseBody
+    public ResponseEntity<?> saveFight(@RequestBody FavFightDto favFightDto) {
+        FavFightDto favFight = new FavFightDto();
+        favFight.setId_user(favFightDto.getId_user());
+        favFight.setId_fighter1(favFightDto.getId_fighter1());
+        favFight.setId_fighter2(favFightDto.getId_fighter2());
+        favFight.setWinner(favFightDto.getWinner());
+        favFight.setPercentage(favFightDto.getPercentage());
+        favFight.setMethod(favFightDto.getMethod());
+
+        favFightRepository.save(favFight);
+        return ResponseEntity.ok("Fight saved");
+    }
+
 
 
     @GetMapping("/user")

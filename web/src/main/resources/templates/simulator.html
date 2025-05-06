@@ -70,8 +70,7 @@
             new Chart(document.getElementById('fighterRadarChart'), config);
 
         });
-        /*]]>*/
-
+        const id_fighter1 = /*[[${fighter1.id_fighter ?: 0}]]*/
         setTimeout(() => {
             Swal.fire({
                 title: 'Save this fight?',
@@ -90,17 +89,47 @@
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Saved!',
-                        text: 'This fight has been saved.',
-                        confirmButtonColor: '#E50F0F'
-                    });
 
-                    // la lógica real de guardar
+                    fetch('/simulator/save', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id_user: 1,
+                            id_fighter1: id_fighter1,
+                            id_fighter2: 3,
+                            winner: 1,
+                            percentage: 80,
+                            method: 'KO'
+                        })
+
+                    })
+                        .then(response => {
+                            if (!response.ok) throw new Error("Network error");
+                            return response.text();
+                        })
+                        .then(() => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Saved!',
+                                text: 'This fight has been saved.',
+                                confirmButtonColor: '#E50F0F'
+                            });
+                        })
+                        .catch(error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to save the fight.',
+                                confirmButtonColor: '#E50F0F'
+                            });
+                        });
                 }
             });
         }, 5000);
+
+        /*]]>*/
     </script>
 
 
@@ -183,7 +212,7 @@
         </div>
 
         <!-- Botón de comparar -->
-        <div class="w-full md:w-1/4">
+        <div class="w-full mb-4 md:w-1/4">
             <button type="submit"
                     class="w-full h-12 bg-[#E50F0F] hover:bg-red-700 text-white px-4 py-2">
                 fight

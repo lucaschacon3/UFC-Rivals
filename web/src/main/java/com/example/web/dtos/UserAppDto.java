@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class UserAppDto {
 
+    private Integer id_user_app;
     private String username;
     private String email;
     private String password;

@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepository {
+public class UserAppRepository {
 
     private final JdbcClient jdbcClient;
 
-    public UserRepository(JdbcClient jdbcClient) {
+    public UserAppRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
 
