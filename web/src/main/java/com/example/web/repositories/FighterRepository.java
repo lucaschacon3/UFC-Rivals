@@ -22,10 +22,10 @@ public class FighterRepository {
 
     public List<FighterDto> findByRankingBetween(int start, int end) {
         return jdbcClient.sql("""
-            SELECT *
-            FROM fighter
-            WHERE ranking BETWEEN ? AND ?
-            """)
+                        SELECT *
+                        FROM fighter
+                        WHERE ranking BETWEEN ? AND ?
+                        """)
                 .param(1, start)
                 .param(2, end)
                 .query(FighterDto.class)

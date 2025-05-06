@@ -1,18 +1,21 @@
 package com.example.web.controllers;
 
 import com.example.web.dtos.FighterDto;
+import com.example.web.dtos.UserAppDto;
 import com.example.web.services.FighterService;
 import com.example.web.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UFCRivalsController {
@@ -40,11 +43,13 @@ public class UFCRivalsController {
     public String register(@RequestParam String username,
                            @RequestParam String email,
                            @RequestParam String password,
-                           @RequestParam String rol,
                            Model model) {
+
+        model.addAttribute("username", username);
+        model.addAttribute("email", email);
         try {
-            userService.registerUser(username, password, email, rol);  // Passing all parameters
-            return "redirect:/login";  // Redirecting to login after successful registration
+            userService.registerUser(username, password, email);  // Passing all parameters
+            return "redirect:/login";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "register";  // Returning error if registration fails
@@ -82,6 +87,7 @@ public class UFCRivalsController {
 
         return "fighters";
     }
+
 
     @GetMapping("/ranking")
     public String ranking(Model model) {
@@ -124,6 +130,7 @@ public class UFCRivalsController {
 
         return "simulator";
     }
+
 
     @GetMapping("/user")
     public String user(Model model) {

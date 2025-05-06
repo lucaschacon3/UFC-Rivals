@@ -56,12 +56,12 @@
         <form action="/register" method="post">
             <div class="mb-4">
                 <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input type="text" id="username" name="username"
+                <input type="text" id="username" name="username" th:value="${username}"
                        class="w-full mt-1 p-2 border border-gray-300 rounded-md" required>
             </div>
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email"
+                <input type="email" id="email" name="email" th:value="${email}"
                        class="w-full mt-1 p-2 border border-gray-300 rounded-md" required>
             </div>
             <div class="mb-4">
@@ -69,17 +69,21 @@
                 <input type="password" id="password" name="password"
                        class="w-full mt-1 p-2 border border-gray-300 rounded-md" required>
             </div>
-            <div class="mb-6">
-                <label for="rol" class="block text-sm font-medium text-gray-700">rol</label>
-                <input type="text" id="rol" name="rol"
-                       class="w-full mt-1 p-2 border border-gray-300 rounded-md" required>
-            </div>
             <div class="flex items-center justify-between">
                 <button type="submit" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700">Register</button>
                 <a href="/login" class="text-sm text-red-600 hover:underline">I have an account?</a>
             </div>
         </form>
-        <span class="text-red" th:text="${errorMessage}"></span>
+        <div th:if="${errorMessage}" class="w-full mx-auto mt-6">
+            <div class="flex items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow"
+                 role="alert">
+                <svg class="fill-current w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M10 15a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-12a1 1 0 011 1v8a1 1 0 01-2 0V4a1 1 0 011-1z"/>
+                </svg>
+                <p class="text-sm" th:text="${errorMessage}">Error</p>
+            </div>
+        </div>
+
     </div>
 </main>
 

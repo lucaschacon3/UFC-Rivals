@@ -52,4 +52,6 @@ public class FighterService {
             return fighterRepository.findAll(sortedPageable);
         }
     }
+
+
 }

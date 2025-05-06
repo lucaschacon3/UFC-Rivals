@@ -1,13 +1,43 @@
 package com.example.web.repositories;
 
-import com.example.web.entities.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.web.dtos.UserAppDto;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByUsername(String username);
+public class UserRepository {
+
+    private final JdbcClient jdbcClient;
+
+    public UserRepository(JdbcClient jdbcClient) {
+        this.jdbcClient = jdbcClient;
+    }
+
+    public Optional<UserAppDto> findByUsername(String username) {
+        return jdbcClient.sql("SELECT username,email, password FROM user_app WHERE username = ?")
+                .params(List.of(username))
+                .query(UserAppDto.class)
+                .list()
+                .stream()
+                .findFirst();
+    }
+
+
+    public void save(UserAppDto user) {
+        jdbcClient.sql("""
+                            INSERT INTO user_app (username, email, password)
+                            VALUES (?, ?, ?)
+                        """)
+                .params(List.of(
+                        user.getUsername(),
+                        user.getEmail(),
+                        user.getPassword()
+                ))
+                .update();
+    }
+
 }
 
