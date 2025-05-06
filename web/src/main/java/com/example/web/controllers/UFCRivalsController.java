@@ -149,9 +149,8 @@ public class UFCRivalsController {
         favFight.setId_user(favFightDto.getId_user());
         favFight.setId_fighter1(favFightDto.getId_fighter1());
         favFight.setId_fighter2(favFightDto.getId_fighter2());
-        favFight.setWinner(favFightDto.getWinner());
-        favFight.setPercentage(favFightDto.getPercentage());
-        favFight.setMethod(favFightDto.getMethod());
+        favFight.setPercentage_f1(favFightDto.getPercentage_f1());
+        favFight.setPercentage_f2(favFightDto.getPercentage_f2());;
 
         favFightRepository.save(favFight);
         return ResponseEntity.ok("Fight saved");

@@ -51,11 +51,9 @@ CREATE TABLE fav_fight
     id_user     INT NOT NULL,
     id_fighter1 INT NOT NULL,
     id_fighter2 INT NOT NULL,
-    winner      INT,
-    percentage  REAL,
-    method      VARCHAR(20) CHECK (method IN ('KO', 'Submission', 'Decision')),
+    percentage_f1 REAL,
+    percentage_f2 REAL,
     FOREIGN KEY (id_user) REFERENCES user_app (id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter1) REFERENCES fighter (id_fighter) ON DELETE CASCADE,
-    FOREIGN KEY (id_fighter2) REFERENCES fighter (id_fighter) ON DELETE CASCADE,
-    FOREIGN KEY (winner) REFERENCES fighter (id_fighter) ON DELETE SET NULL
+    FOREIGN KEY (id_fighter2) REFERENCES fighter (id_fighter) ON DELETE CASCADE
 );

@@ -196,6 +196,5 @@ VALUES (1, 1); -- admin's favorite fighter: Conor McGregor
 
 
 -- Inserción de peleas favoritas simuladas
-INSERT INTO fav_fight (id_user, id_fighter1, id_fighter2, winner, percentage, method)
-VALUES (1, 1, 2, 1, 70.5,
-        'KO');
+INSERT INTO fav_fight (id_user, id_fighter1, id_fighter2, percentage_f1, percentage_f2)
+VALUES (1, 1, 2, 70, 30);

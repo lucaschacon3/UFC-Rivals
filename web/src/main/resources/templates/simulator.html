@@ -70,7 +70,10 @@
             new Chart(document.getElementById('fighterRadarChart'), config);
 
         });
-        const id_fighter1 = /*[[${fighter1.id_fighter ?: 0}]]*/
+
+        const id_fighter1 = /*[[${fighter1.id_fighter ?: 0}]]*/ 'Id Fighter 1'
+        const id_fighter2 = /*[[${fighter2.id_fighter ?: 0}]]*/ 'Id Fighter 2'
+        const percent1 = /*[[${percent1 ?: 0}]]*/ 'Percent Fighter 2'
         setTimeout(() => {
             Swal.fire({
                 title: 'Save this fight?',
@@ -98,10 +101,9 @@
                         body: JSON.stringify({
                             id_user: 1,
                             id_fighter1: id_fighter1,
-                            id_fighter2: 3,
-                            winner: 1,
-                            percentage: 80,
-                            method: 'KO'
+                            id_fighter2: id_fighter2,
+                            percentage_f1: percent1,
+                            percentage_f2: 20
                         })
 
                     })
