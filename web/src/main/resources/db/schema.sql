@@ -1,7 +1,7 @@
 -- Tabla de usuarios
 CREATE TABLE user_app
 (
-    id_user  SERIAL PRIMARY KEY,
+    id_user_app  SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE  NOT NULL,
     email    VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255)        NOT NULL
@@ -37,10 +37,10 @@ CREATE TABLE fighter
 -- Tabla de peleadores favoritos por usuario
 CREATE TABLE fav_fighter
 (
-    id_user    INT,
+    id_user_app    INT,
     id_fighter INT,
-    PRIMARY KEY (id_user, id_fighter),
-    FOREIGN KEY (id_user) REFERENCES user_app (id_user) ON DELETE CASCADE,
+    PRIMARY KEY (id_user_app, id_fighter),
+    FOREIGN KEY (id_user_app) REFERENCES user_app (id_user_app) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter) REFERENCES fighter (id_fighter) ON DELETE CASCADE
 );
 
@@ -48,12 +48,12 @@ CREATE TABLE fav_fighter
 CREATE TABLE fav_fight
 (
     id_fight    SERIAL PRIMARY KEY,
-    id_user     INT NOT NULL,
+    id_user_app     INT NOT NULL,
     id_fighter1 INT NOT NULL,
     id_fighter2 INT NOT NULL,
     percentage_f1 REAL,
     percentage_f2 REAL,
-    FOREIGN KEY (id_user) REFERENCES user_app (id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_user_app) REFERENCES user_app (id_user_app) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter1) REFERENCES fighter (id_fighter) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter2) REFERENCES fighter (id_fighter) ON DELETE CASCADE
 );

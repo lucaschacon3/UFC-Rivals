@@ -31,6 +31,10 @@ public class FighterService {
         return fighterRepository.findByRankingBetween(0, 15);
     }
 
+    public List<FighterDto> findAll() {
+        return fighterRepository.findAll();
+    }
+
     public Page<FighterDto> findFilteredAndSorted(String search, String sort, Pageable pageable) {
         Sort sortOrder = switch (sort) {
             case "weightAsc" -> Sort.by("weight").ascending();

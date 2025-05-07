@@ -74,6 +74,14 @@ public class FighterRepository {
         return new PageImpl<>(pageList, pageable, fullList.size());
     }
 
+    public List<FighterDto> findAll() {
+        return jdbcClient.sql("""
+                SELECT *
+                FROM fighter
+                """)
+                .query(FighterDto.class)
+                .list();
+    }
     public Page<FighterDto> findAll(Pageable pageable) {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();

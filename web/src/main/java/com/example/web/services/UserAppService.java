@@ -3,6 +3,7 @@ package com.example.web.services;
 import com.example.web.dtos.UserAppDto;
 import com.example.web.repositories.UserAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 
 @Service
@@ -43,11 +45,15 @@ public class UserAppService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserAppDto user = userAppRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return new org.springframework.security.core.userdetails.User(
+
+        return new UserAppDto(
+                user.getId_user_app(),
                 user.getUsername(),
+                user.getEmail(),
                 user.getPassword(),
-                Collections.emptyList()  // Role mapping
+                List.of()
         );
     }
+
 
 }

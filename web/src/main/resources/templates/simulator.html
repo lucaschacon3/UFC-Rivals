@@ -69,67 +69,83 @@
 
             new Chart(document.getElementById('fighterRadarChart'), config);
 
+            const id_user_app = /*[[${id_user_app ?: 1}]]*/ 'Id user'
+            const id_fighter1 = /*[[${fighter1.id_fighter ?: 0}]]*/ 'Id Fighter 1'
+            const id_fighter2 = /*[[${fighter2.id_fighter ?: 0}]]*/ 'Id Fighter 2'
+            const percent1Input = document.getElementById("percent1");
+            const percent2Input = document.getElementById("percent2");
+
+            const percent1 = percent1Input && !isNaN(parseFloat(percent1Input.value))
+                ? parseFloat(percent1Input.value).toFixed(2)
+                : 50;
+
+            const percent2 = percent2Input && !isNaN(parseFloat(percent2Input.value))
+                ? parseFloat(percent2Input.value).toFixed(2)
+                : 50;
+
+
+            // Ahora puedes usar percent1 y percent2 con valores seguros
+
+
+
+            setTimeout(() => {
+                Swal.fire({
+                    title: 'Save this fight?',
+                    text: 'Would you like to save this fight for later?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#E50F0F',
+                    cancelButtonColor: '#96979a',
+                    confirmButtonText: 'Yes, save it!',
+                    cancelButtonText: 'No, thanks',
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        title: 'text-lg ',
+                        confirmButton: 'px-4 py-2',
+                        cancelButton: 'px-4 py-2',
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        fetch('/simulator/save', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id_user: id_user_app,
+                                id_fighter1: id_fighter1,
+                                id_fighter2: id_fighter2,
+                                percentage_f1: percent1,
+                                percentage_f2: percent2
+                            })
+
+                        })
+                            .then(response => {
+                                if (!response.ok) throw new Error("Network error");
+                                return response.text();
+                            })
+                            .then(() => {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Saved!',
+                                    text: 'This fight has been saved.',
+                                    confirmButtonColor: '#E50F0F'
+                                });
+                            })
+                            .catch(error => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: 'Failed to save the fight.',
+                                    confirmButtonColor: '#E50F0F'
+                                });
+                            });
+                    }
+                });
+            }, 5000);
+
         });
-
-        const id_fighter1 = /*[[${fighter1.id_fighter ?: 0}]]*/ 'Id Fighter 1'
-        const id_fighter2 = /*[[${fighter2.id_fighter ?: 0}]]*/ 'Id Fighter 2'
-        const percent1 = /*[[${percent1 ?: 0}]]*/ 'Percent Fighter 2'
-        setTimeout(() => {
-            Swal.fire({
-                title: 'Save this fight?',
-                text: 'Would you like to save this fight for later?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#E50F0F',
-                cancelButtonColor: '#96979a',
-                confirmButtonText: 'Yes, save it!',
-                cancelButtonText: 'No, thanks',
-                customClass: {
-                    popup: 'rounded-2xl',
-                    title: 'text-lg ',
-                    confirmButton: 'px-4 py-2',
-                    cancelButton: 'px-4 py-2',
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-
-                    fetch('/simulator/save', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            id_user: 1,
-                            id_fighter1: id_fighter1,
-                            id_fighter2: id_fighter2,
-                            percentage_f1: percent1,
-                            percentage_f2: 20
-                        })
-
-                    })
-                        .then(response => {
-                            if (!response.ok) throw new Error("Network error");
-                            return response.text();
-                        })
-                        .then(() => {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Saved!',
-                                text: 'This fight has been saved.',
-                                confirmButtonColor: '#E50F0F'
-                            });
-                        })
-                        .catch(error => {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: 'Failed to save the fight.',
-                                confirmButtonColor: '#E50F0F'
-                            });
-                        });
-                }
-            });
-        }, 5000);
 
         /*]]>*/
     </script>
@@ -327,12 +343,17 @@
                 <div class="w-full bg-gray-300 h-6 rounded-full overflow-hidden flex">
                     <div class="bg-[#E50F0F] h-full text-white text-sm flex items-center justify-center"
                          th:style="'width:' + ${percent1} + '%'">
-                        <span th:text="${#numbers.formatDecimal(percent1, 0, 0)} + '%'"></span>
+                        <span th:text="${#numbers.formatDecimal(percent1, 2, 2)} + '%'"></span>
                     </div>
                     <div class="bg-blue-500 h-full text-white text-sm flex items-center justify-center"
                          th:style="'width:' + ${percent2} + '%'">
-                        <span th:text="${#numbers.formatDecimal(percent2, 0, 0)} + '%'"></span>
+                        <span th:text="${#numbers.formatDecimal(percent2, 2, 2)} + '%'"></span>
                     </div>
+                </div>
+
+                <div>
+                    <input type="hidden" th:value="${percent1}" id="percent1">
+                    <input type="hidden" th:value="${percent2}" id="percent2">
                 </div>
 
                 <p class="mt-2">

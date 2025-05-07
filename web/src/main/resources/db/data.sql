@@ -1,6 +1,7 @@
 -- Inserción de usuarios
 INSERT INTO user_app (username, email, password)
-VALUES ('admin', 'admin@example.com', '$2a$10$92RJfN5tcDaTZqxJA.ndfumcE7xCR.CMP/7CpGOZk/kYfs/Uka5W6');
+VALUES ('admin', 'admin@example.com', '$2a$10$92RJfN5tcDaTZqxJA.ndfumcE7xCR.CMP/7CpGOZk/kYfs/Uka5W6'),
+       ('lucas', 'lucas@example.com', '$2a$10$/4s2wlLcO3aJqZgyLS7SYenBQPT9BcpAX6u2tZtco4BjQ.K7bs4cy');
 
 -- Inserción de peleadores
 INSERT INTO fighter (
@@ -191,10 +192,12 @@ VALUES
 
 
 -- Inserción de peleadores favoritos por usuario
-INSERT INTO fav_fighter (id_user, id_fighter)
+INSERT INTO fav_fighter (id_user_app, id_fighter)
 VALUES (1, 1); -- admin's favorite fighter: Conor McGregor
 
 
 -- Inserción de peleas favoritas simuladas
-INSERT INTO fav_fight (id_user, id_fighter1, id_fighter2, percentage_f1, percentage_f2)
-VALUES (1, 1, 2, 70, 30);
+INSERT INTO fav_fight (id_user_app, id_fighter1, id_fighter2, percentage_f1, percentage_f2)
+VALUES (1, 1, 2, 70, 30),
+       (2, 3, 6, 70, 30),
+       (2, 4, 7, 70, 30);

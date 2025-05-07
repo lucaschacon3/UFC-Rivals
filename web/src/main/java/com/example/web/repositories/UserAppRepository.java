@@ -17,7 +17,7 @@ public class UserAppRepository {
     }
 
     public Optional<UserAppDto> findByUsername(String username) {
-        return jdbcClient.sql("SELECT username,email, password FROM user_app WHERE username = ?")
+        return jdbcClient.sql("SELECT * FROM user_app WHERE username = ?")
                 .params(List.of(username))
                 .query(UserAppDto.class)
                 .list()

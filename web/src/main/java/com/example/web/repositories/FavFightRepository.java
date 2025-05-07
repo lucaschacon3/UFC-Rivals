@@ -1,8 +1,11 @@
 package com.example.web.repositories;
 
 import com.example.web.dtos.FavFightDto;
+import com.example.web.dtos.FighterDto;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class FavFightRepository {
@@ -15,7 +18,7 @@ public class FavFightRepository {
 
     public void save(FavFightDto favFight) {
         jdbcClient.sql("""
-            INSERT INTO fav_fight (id_user, id_fighter1, id_fighter2, percentage_f1, percentage_f2)
+            INSERT INTO fav_fight (id_user_app, id_fighter1, id_fighter2, percentage_f1, percentage_f2)
             VALUES (?, ?, ?, ?, ?)
         """)
                 .param(1, favFight.getId_user())
@@ -30,5 +33,16 @@ public class FavFightRepository {
         jdbcClient.sql("DELETE FROM fav_fight WHERE id_fight = ?")
                 .param(1, idFight)
                 .update();
+    }
+
+    public List<FavFightDto> findByIdUserApp(int idUserApp) {
+        return jdbcClient.sql("""
+                        SELECT *
+                        FROM fav_fight
+                        WHERE id_user_app=  ?
+                        """)
+                .param(1, idUserApp)
+                .query(FavFightDto.class)
+                .list();
     }
 }
