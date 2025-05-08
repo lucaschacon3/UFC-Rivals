@@ -43,7 +43,7 @@
                                     text: 'Your account has been saved, Bye.',
                                     confirmButtonColor: '#E50F0F'
                                 });
-                                window.location.href="/logout"
+                                window.location.href = "/logout"
                             })
                             .catch(error => {
                                 Swal.fire({
@@ -56,6 +56,24 @@
                     }
                 });
             });
+
+            document.getElementById('save-changes').addEventListener('click', function () {
+                Swal.fire({
+                    title: '¿Are you sure?',
+                    text: "You will update your user data",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, save it!',
+                    cancelButtonText: 'No, thanks',
+                    confirmButtonColor: '#E50F0F'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.querySelector('form').submit();
+                    }
+                });
+            });
+
+
         });
         /*]]>*/
     </script>
@@ -77,37 +95,38 @@
     </div>
 
     <!-- Section 1: User Settings -->
-    <form th:action="@{/user}" method="get" class="mb-10">
+    <form th:action="@{/user/details}" method="post" class="mb-10">
 
         <h2 class="text-2xl mb-6">User Settings</h2>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
             <summary class="cursor-pointer text-lg font-medium">Change Username</summary>
             <div class="mt-4 space-y-2">
-                <input type="text" placeholder="New Username" class="w-full p-2 border rounded">
+                <input name="new_username" type="text" placeholder="New Username" class="w-full p-2 border rounded">
             </div>
         </details>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
             <summary class="cursor-pointer text-lg font-medium">Change Email</summary>
             <div class="mt-4 space-y-2">
-                <input type="email" placeholder="New Email" class="w-full p-2 border rounded">
+                <input name="new_email" type="email" placeholder="New Email" class="w-full p-2 border rounded">
             </div>
         </details>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
             <summary class="cursor-pointer text-lg font-medium">Change Password</summary>
             <div class="mt-4 space-y-2">
-                <input type="password" placeholder="Current Password" class="w-full p-2 border rounded">
-                <input type="password" placeholder="New Password" class="w-full p-2 border rounded">
-                <input type="password" placeholder="Confirm New Password" class="w-full p-2 border rounded">
+                <input name="current_password" type="password" placeholder="Current Password" class="w-full p-2 border rounded">
+                <input name="new_password" type="password" placeholder="New Password" class="w-full p-2 border rounded">
+                <input name="confirm_new_password" type="password" placeholder="Confirm New Password" class="w-full p-2 border rounded">
             </div>
         </details>
 
 
         <div class="mt-6 flex gap-4 justify-center items-center">
-            <button type="submit"
-                    class="bg-[#E50F0F] hover:bg-red-700 text-white h-12 w-32 flex justify-center items-center">
+            <button type="button"
+                    class="bg-[#E50F0F] hover:bg-red-700 text-white h-12 w-32 flex justify-center items-center"
+                    id="save-changes">
                 <span>Save Changes</span>
             </button>
             <button type="reset"
@@ -116,7 +135,6 @@
                 <div class="absolute bottom-0 left-0 h-1 w-full bg-[#E50F0F] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-in-out"></div>
             </button>
         </div>
-
     </form>
 
     <h2 class="text-2xl mb-6">Restricted Area</h2>
@@ -129,7 +147,8 @@
 
         <div class="mt-4">
             <p class="text-yellow-500 mb-2">Warning: This action is irreversible.</p>
-            <button id="delete-account" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700">Delete My Account
+            <button id="delete-account" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700">Delete My
+                Account
             </button>
         </div>
     </details>

@@ -40,8 +40,6 @@ public class UFCRivalsController {
         this.favFighterService = favFighterService;
     }
 
-
-
     @GetMapping("/login")
     public String loginPage() {
         return "login"; // Página de login (HTML)
@@ -108,7 +106,7 @@ public class UFCRivalsController {
     @PostMapping("/fighters/favorite")
     @ResponseBody
     public ResponseEntity<Void> addFavoriteFighter(@RequestBody Map<String, Object> payload, @AuthenticationPrincipal UserAppDto userApp) {
-        int fighterId = Integer.parseInt((String) payload.get("id")) ;
+        int fighterId = Integer.parseInt((String) payload.get("id"));
         favFighterService.save(userApp.getId_user_app(), fighterId);
         return ResponseEntity.ok().build();
     }
@@ -116,7 +114,7 @@ public class UFCRivalsController {
     @DeleteMapping("/fighters/favorite")
     @ResponseBody
     public ResponseEntity<Void> deleteFavoriteFighter(@RequestBody Map<String, Object> payload) {
-        int fighterId = Integer.parseInt((String) payload.get("id")) ;
+        int fighterId = Integer.parseInt((String) payload.get("id"));
         favFighterService.deleteById(fighterId);
         return ResponseEntity.ok().build();
     }
@@ -144,7 +142,7 @@ public class UFCRivalsController {
 
         if (category != null) {
             model.addAttribute("category_selected", category);
-        }else{
+        } else {
             model.addAttribute("category_selected", "select category");
         }
 
@@ -180,12 +178,12 @@ public class UFCRivalsController {
         favFight.setId_fighter1(favFightDto.getId_fighter1());
         favFight.setId_fighter2(favFightDto.getId_fighter2());
         favFight.setPercentage_f1(favFightDto.getPercentage_f1());
-        favFight.setPercentage_f2(favFightDto.getPercentage_f2());;
+        favFight.setPercentage_f2(favFightDto.getPercentage_f2());
+        ;
 
         favFightService.save(favFight);
         return ResponseEntity.ok("Fight saved");
     }
-
 
 
     @GetMapping("/user")
@@ -202,6 +200,22 @@ public class UFCRivalsController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/user/details")
+    public String userDetails(Model model, @RequestParam(required = false) String new_username,
+                              @RequestParam(required = false) String new_email,
+                              @RequestParam(required = false) String current_password,
+                              @RequestParam(required = false) String new_password,
+                              @RequestParam(required = false) String confirm_new_password) {
+
+        model.addAttribute("new_username", new_username);
+        model.addAttribute("new_email", new_email);
+        model.addAttribute("current_password", current_password);
+        model.addAttribute("new_password", new_password);
+        model.addAttribute("confirm_new_password", confirm_new_password);
+        model.addAttribute("page", "user");
+        return "user_details";
+    }
+
     @GetMapping("/favorites")
     public String favorites(Model model, @AuthenticationPrincipal UserAppDto userApp) {
         model.addAttribute("page", "user");
@@ -211,10 +225,11 @@ public class UFCRivalsController {
 
         return "favorites";
     }
+
     @PostMapping("/favorites/delete/fight")
     @ResponseBody
     public ResponseEntity<Void> deleteFavoriteFightFavorites(@RequestBody Map<String, Object> payload) {
-        int fightId = Integer.parseInt((String) payload.get("id")) ;
+        int fightId = Integer.parseInt((String) payload.get("id"));
         favFightService.deleteById(fightId);
         return ResponseEntity.ok().build();
     }
@@ -222,7 +237,7 @@ public class UFCRivalsController {
     @PostMapping("/favorites/delete/fighter")
     @ResponseBody
     public ResponseEntity<Void> deleteFavoriteFighterFavorites(@RequestBody Map<String, Object> payload) {
-        int fightId = Integer.parseInt((String) payload.get("id")) ;
+        int fightId = Integer.parseInt((String) payload.get("id"));
         favFighterService.deleteById(fightId);
         return ResponseEntity.ok().build();
     }

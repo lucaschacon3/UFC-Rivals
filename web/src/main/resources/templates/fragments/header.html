@@ -27,16 +27,17 @@
     <div id="navMenu"
             class="hidden md:flex md:space-x-8 flex-col md:flex-row flex items-center justify-center w-full md:mt-0 md:h-32 bg-gray-100 md:bg-transparent  md:static z-10 transition-all duration-300"
     >
-        <!-- Botón Fighters -->
-        <a class=" group relative w-32 h-16 flex items-center justify-center" th:href="@{/fighters}">
-            <span>fighters</span>
-            <div th:classappend="${page == 'fighters' ? 'absolute bottom-0 left-0 w-full h-[4px] bg-[#E50F0F]' : 'absolute bottom-0 left-0 w-full h-[4px] bg-[#E50F0F] scale-x-0 group-hover:scale-x-100 transition-all duration-300'}"></div>
-        </a>
 
         <!-- Botón Ranking -->
         <a class=" group relative w-32 h-16 flex items-center justify-center" th:href="@{/ranking}">
             <span>ranking</span>
             <div th:classappend="${page == 'ranking' ? 'absolute bottom-0 left-0 w-full h-[4px] bg-[#E50F0F]' : 'absolute bottom-0 left-0 w-full h-[4px] bg-[#E50F0F] scale-x-0 group-hover:scale-x-100 transition-all duration-300'}"></div>
+        </a>
+
+        <!-- Botón Fighters -->
+        <a class=" group relative w-32 h-16 flex items-center justify-center" th:href="@{/fighters}">
+            <span>fighters</span>
+            <div th:classappend="${page == 'fighters' ? 'absolute bottom-0 left-0 w-full h-[4px] bg-[#E50F0F]' : 'absolute bottom-0 left-0 w-full h-[4px] bg-[#E50F0F] scale-x-0 group-hover:scale-x-100 transition-all duration-300'}"></div>
         </a>
 
         <!-- Botón Simulator -->
