@@ -26,4 +26,8 @@ public class FavFighterService {
         return favFighterRepository.findByIdUserApp(idUserApp);
 
     }
+    public List<Integer> findIdFighterByIdUserApp(int idUserApp) {
+        return favFighterRepository.findIdFighterByIdUserApp(idUserApp);
+
+    }
 }

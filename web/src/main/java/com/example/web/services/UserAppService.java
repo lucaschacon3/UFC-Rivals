@@ -41,6 +41,10 @@ public class UserAppService implements UserDetailsService {
         userAppRepository.save(user);
     }
 
+    public void deleteUser(Integer id_user_app) {
+        userAppRepository.deleteUser(id_user_app);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserAppDto user = userAppRepository.findByUsername(username)

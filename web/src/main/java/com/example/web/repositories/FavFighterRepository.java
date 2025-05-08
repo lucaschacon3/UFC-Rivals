@@ -42,4 +42,15 @@ public class FavFighterRepository {
                 .query(FavFighterDto.class)
                 .list();
     }
+
+    public List<Integer> findIdFighterByIdUserApp(int idUserApp) {
+        return jdbcClient.sql("""
+                        SELECT id_fighter
+                        FROM fav_fighter
+                        WHERE id_user_app=  ?
+                        """)
+                .param(1, idUserApp)
+                .query(Integer.class)
+                .list();
+    }
 }

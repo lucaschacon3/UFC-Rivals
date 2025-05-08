@@ -9,39 +9,34 @@
                 if (event.target && event.target.matches('input[type="checkbox"]#favoriteCheckbox')) {
                     const checkbox = event.target;
                     const isChecked = checkbox.checked;
-                    const fightId = checkbox.getAttribute('data-fight-id');  // Obtener el data-fight-id correctamente
+                    const fighterId = checkbox.getAttribute('data-fighter-id');  // Obtener el data-fight-id correctamente
 
                     fetch('/fighters/favorite', {
                         method: isChecked ? 'POST' : 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ id: fightId })  // Enviamos el id del luchador
+                        body: JSON.stringify({id: fighterId})  // Enviamos el id del luchador
                     })
                         .then(response => {
-                            // Verificar si la respuesta es exitosa
-                            if (!response.ok) {
-                                throw new Error('Error en la solicitud');
-                            }
-
-                            // Si la respuesta tiene un código 204 (sin contenido), no intentamos hacer json()
-                            if (response.status === 204) {
-                                console.log(`Luchador ${fightId} actualizado (sin respuesta JSON).`);
-                                return null;  // No intentamos hacer response.json() si es 204
-                            }
-
-                            // Si la respuesta tiene cuerpo, lo convertimos a JSON
-                            return response.text().then(text => {
-                                // Si la respuesta no tiene contenido, se devuelve null
-                                return text ? JSON.parse(text) : null;
-                            });
+                            if (!response.ok) throw new Error("Network error");
+                            return response.text();
                         })
-                        .then(data => {
-                            if (data) {
-                                console.log(`Respuesta del servidor para luchador ${fightId}:`, data);
-                            } else {
-                                console.log(`No hay datos en la respuesta del servidor para luchador ${fightId}.`);
+                        .then(() => {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Fighter updated',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            if (isChecked){
+                                document.getElementById(`front-side-${fighterId}`).setAttribute("class", "flip-card-front absolute w-full h-full bg-white border p-6 rounded shadow flex flex-col border-yellow-400")
+                            }else{
+                                document.getElementById(`front-side-${fighterId}`).setAttribute("class", "flip-card-front absolute w-full h-full bg-white border p-6 rounded shadow flex flex-col border-gray-100")
                             }
+
                         })
                         .catch(error => {
                             console.error(`Error al enviar el favorito del luchador ${fightId}:`, error);
@@ -102,6 +97,8 @@
         </div>
     </form>
 
+
+
     <!-- si esta vacio-->
     <div th:if="${!fighters.isEmpty()}" class="w-full max-w-6xl space-y-6 bg-white p-6 shadow-xl">
 
@@ -110,8 +107,11 @@
                 <div class="flip-card-inner w-full h-full relative">
 
                     <!-- Front Side -->
-                    <div class="flip-card-front absolute w-full h-full bg-white border p-6 rounded shadow flex flex-col">
-                        <!-- Le damos una altura fija a la imagen -->
+                    <div th:id="'front-side-' + ${fighter.id_fighter}"
+                         class="flip-card-front absolute w-full h-full bg-white border p-6 rounded shadow flex flex-col"
+                         th:classappend="${favFighterIds.contains(fighter.id_fighter)} ? 'border-yellow-400' : 'border-gray-100'">
+
+                    <!-- Le damos una altura fija a la imagen -->
                         <img th:src="@{${fighter.image}}"
                              alt="Image"
                              class="w-full h-48 object-contain mb-4 rounded mx-auto"/>
@@ -126,7 +126,8 @@
                     <!-- Back Side -->
                     <div class="flip-card-back absolute w-full h-full bg-gray-100 border p-4 rounded shadow flex flex-col justify-center items-center text-center relative">
                         <label class="absolute top-2 right-2 cursor-pointer z-10">
-                            <input type="checkbox" class="hidden peer" name="favorite" id="favoriteCheckbox" th:data-fight-id="${fighter.id_fighter}" />
+                            <input type="checkbox" class="hidden peer" name="favorite" id="favoriteCheckbox"
+                                   th:data-fighter-id="${fighter.id_fighter}" th:checked="${favFighterIds.contains(fighter.id_fighter)}"/>
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-6 w-6 text-gray-400 peer-checked:text-yellow-400 transition-colors duration-300"
                                  fill="currentColor" viewBox="0 0 24 24">
@@ -134,7 +135,9 @@
                             </svg>
                         </label>
 
-                        <h2 class="text-gray-600 text-2xl text-center mb-4" th:text="|${fighter.name} ${fighter.surname}|"></h2>
+
+                        <h2 class="text-gray-600 text-2xl text-center mb-4"
+                            th:text="|${fighter.name} ${fighter.surname}|"></h2>
                         <p class="text-lg font-medium text-gray-700 mb-2">Wins: <span
                                 class="font-semibold text-green-600" th:text="${fighter.total_wins}"></span></p>
                         <p class="text-lg font-medium text-gray-700 mb-2">Losses: <span

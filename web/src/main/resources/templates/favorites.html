@@ -125,7 +125,7 @@
                 <div th:each="fighter : ${fighters}" th:if="${fighter.id_fighter == fav_fighter.id_fighter}"
                      class="bg-gray-100 p-6 shadow-lg h-[400px] relative group flex flex-col items-center justify-center text-center">
 
-                    <img th:src="${fighter.image}" height="80" width="80" alt="fighter_img" class="mb-4">
+                    <img th:src="${fighter.image}" height="120" width="120" alt="fighter_img" class="mb-4">
                     <p th:text="|${fighter.name} &quot;${fighter.nickname}&quot; ${fighter.surname}|"></p>
 
                     <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">

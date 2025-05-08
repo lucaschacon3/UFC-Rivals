@@ -88,10 +88,11 @@
 
 
 
-            setTimeout(() => {
+            document.getElementById('saveFightBtn').addEventListener('click', () => {
+                // Evento cuando el botón es presionado
                 Swal.fire({
                     title: 'Save this fight?',
-                    text: 'Would you like to save this fight for later?',
+                    text: 'Would you like to save this fight?',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#E50F0F',
@@ -106,6 +107,7 @@
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        // Si el usuario confirma, realiza la acción con fetch
 
                         fetch('/simulator/save', {
                             method: 'POST',
@@ -119,7 +121,6 @@
                                 percentage_f1: percent1,
                                 percentage_f2: percent2
                             })
-
                         })
                             .then(response => {
                                 if (!response.ok) throw new Error("Network error");
@@ -143,7 +144,7 @@
                             });
                     }
                 });
-            }, 5000);
+            });
 
         });
 
@@ -362,21 +363,19 @@
                 </p>
             </th:block>
         </div>
-
-    </div>
-    <!--Modal-->
-    <div id="customConfirmModal" class="custom-modal-overlay hidden">
-        <div class="custom-modal">
-            <p class="text-lg font-medium mb-4">Would you like to save this fight?</p>
-            <div>
-                <button class="confirm-btn" id="confirmSaveBtn">Save</button>
-                <button class="cancel-btn" id="cancelSaveBtn">Cancel</button>
-            </div>
+        <div class="flex justify-center items-center mt-8">
+            <button
+                    id="saveFightBtn"
+                    class="relative h-12 w-40 flex justify-center items-center group border-2 border-black bg-white"
+            >
+                <span class="z-10 text-green-600 text-xl">Save Fight</span>
+                <div class="absolute bottom-0 left-0 h-1 w-full bg-green-600 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-in-out"></div>
+            </button>
         </div>
+
     </div>
 
 
-</div>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>

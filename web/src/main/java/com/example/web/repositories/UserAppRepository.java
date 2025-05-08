@@ -25,7 +25,11 @@ public class UserAppRepository {
                 .findFirst();
     }
 
-
+    public void deleteUser(int id_user_app) {
+        jdbcClient.sql("DELETE FROM user_app WHERE id_user_app = ?")
+                .param(1, id_user_app)
+                .update();
+    }
     public void save(UserAppDto user) {
         jdbcClient.sql("""
                             INSERT INTO user_app (username, email, password)

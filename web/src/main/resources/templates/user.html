@@ -5,30 +5,55 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.delete-account').forEach(button => {
-                button.addEventListener('click', function () {
-                    const fighterId = this.dataset.id;
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "Do you want to delete your account?",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#e3342f',
-                        cancelButtonColor: '#6c757d',
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'Cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'deleted!',
-                                text: 'Your account is already deleted',
-                                confirmButtonColor: '#E50F0F'
-                            });
+            document.getElementById('delete-account').addEventListener('click', () => {
+                // Evento cuando el botón es presionado
+                Swal.fire({
+                    title: 'Delete Account?',
+                    text: 'Would you like to delete your account?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#E50F0F',
+                    cancelButtonColor: '#96979a',
+                    confirmButtonText: 'Yes, save it!',
+                    cancelButtonText: 'No, thanks',
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        title: 'text-lg ',
+                        confirmButton: 'px-4 py-2',
+                        cancelButton: 'px-4 py-2',
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirma, realiza la acción con fetch
 
-                            // la lógica real de guardar
-                        }
-                    });
+                        fetch('/user/delete', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .then(response => {
+                                if (!response.ok) throw new Error("Network error");
+                                return response.text();
+                            })
+                            .then(() => {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Saved!',
+                                    text: 'Your account has been saved, Bye.',
+                                    confirmButtonColor: '#E50F0F'
+                                });
+                                window.location.href="/logout"
+                            })
+                            .catch(error => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: 'Failed to delete the account.',
+                                    confirmButtonColor: '#E50F0F'
+                                });
+                            });
+                    }
                 });
             });
         });
@@ -104,7 +129,7 @@
 
         <div class="mt-4">
             <p class="text-yellow-500 mb-2">Warning: This action is irreversible.</p>
-            <button class="delete-account bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700">Delete My Account
+            <button id="delete-account" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700">Delete My Account
             </button>
         </div>
     </details>

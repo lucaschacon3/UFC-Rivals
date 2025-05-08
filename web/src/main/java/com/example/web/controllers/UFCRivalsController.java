@@ -89,6 +89,7 @@ public class UFCRivalsController {
                                @RequestParam(defaultValue = "") String sort,
                                @AuthenticationPrincipal UserAppDto userApp) {
 
+
         Page<FighterDto> fightersPage = fighterService.findFilteredAndSorted(search, sort, PageRequest.of(page, size));
 
 
@@ -99,7 +100,7 @@ public class UFCRivalsController {
         model.addAttribute("sort", sort);
         model.addAttribute("page", "fighters");
 
-        model.addAttribute("favFighters", favFighterService.findByIdUserApp(userApp.getId_user_app()));
+        model.addAttribute("favFighterIds", favFighterService.findIdFighterByIdUserApp(userApp.getId_user_app()));
 
         return "fighters";
     }
@@ -188,9 +189,17 @@ public class UFCRivalsController {
 
 
     @GetMapping("/user")
-    public String user(Model model) {
+    public String user(Model model, @AuthenticationPrincipal UserAppDto userApp) {
+        model.addAttribute("id_user_app", userApp.getId_user_app());
         model.addAttribute("page", "user");
         return "user";
+    }
+
+    @PostMapping("/user/delete")
+    @ResponseBody
+    public ResponseEntity<Void> deleteAccount(@AuthenticationPrincipal UserAppDto userApp) {
+        userService.deleteUser(userApp.getId_user_app());
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/favorites")
