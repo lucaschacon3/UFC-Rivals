@@ -184,13 +184,27 @@
         // Ahora sí, solo se añade el listener cuando está todo cargado
         fighter1Select.addEventListener('change', updateFighter2Options);
     });
+    function setRandomGifs() {
+        const images = [
+            '../img/waiting_fight_1.gif',
+            '../img/waiting_fight_2.gif',
+            '../img/waiting_fight_3.gif',
+            '../img/waiting_fight_4.gif',
+            '../img/waiting_fight_5.gif',
+        ];
+        const gif = document.getElementById('gif-random');
+        const randomIndex=Math.floor(Math.random()*5)
+        gif.setAttribute("src",`${images[randomIndex]}`);
+
+    }
+    window.addEventListener('load', setRandomGifs);
 </script>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div th:replace="~{fragments/preloader :: preloader}"></div>
 
 
-<div class="min-h-screen flex flex-col items-center justify-start px-4 py-8">
+<div class=" flex flex-col items-center justify-start px-4 py-8">
 
     <!-- Formulario de selección -->
     <form method="get" action="#" class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
@@ -245,6 +259,9 @@
             </button>
         </div>
     </form>
+    <div th:if="${fighter1 == null && fighter2 == null}">
+        <img src="" id="gif-random">
+    </div>
     <!-- Comparación de peleadores -->
     <div th:if="${fighter1 != null && fighter2 != null}" class="bg-white p-6 shadow-xl w-full max-w-6xl">
         <h2 class="text-2xl mb-6 text-center">Fighter Comparison</h2>

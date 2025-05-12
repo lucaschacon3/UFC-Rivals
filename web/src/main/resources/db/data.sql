@@ -186,18 +186,3 @@ VALUES
     ('Tai', 'Tuivasa', 'Bam Bam', 'Australia', 31, 265.0, 6.1, 75.0, 'Heavyweight', 20, 15, 13, 0, 2, 5, 3, 1, 1, 0, NULL, 'https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/TUIVASA_TAI_L_08-17.png?itok=ki-GFieH');
 
 
-
-
-
-
-
--- Inserción de peleadores favoritos por usuario
-INSERT INTO fav_fighter (id_user_app, id_fighter)
-VALUES (1, 1); -- admin's favorite fighter: Conor McGregor
-
-
--- Inserción de peleas favoritas simuladas
-INSERT INTO fav_fight (id_user_app, id_fighter1, id_fighter2, percentage_f1, percentage_f2)
-VALUES (1, 1, 2, 70, 30),
-       (2, 3, 6, 70, 30),
-       (2, 4, 7, 70, 30);
