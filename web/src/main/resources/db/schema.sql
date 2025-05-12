@@ -53,6 +53,7 @@ CREATE TABLE fav_fight
     id_fighter2 INT NOT NULL,
     percentage_f1 REAL,
     percentage_f2 REAL,
+    date_fight DATE,
     FOREIGN KEY (id_user_app) REFERENCES user_app (id_user_app) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter1) REFERENCES fighter (id_fighter) ON DELETE CASCADE,
     FOREIGN KEY (id_fighter2) REFERENCES fighter (id_fighter) ON DELETE CASCADE

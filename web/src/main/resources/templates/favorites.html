@@ -193,6 +193,9 @@
                                 <span th:text="${#numbers.formatDecimal(fav_fight.percentage_f2, 2, 2)} + '%'"></span>
                             </div>
                         </div>
+                        <span class="mt-8 text-green-600" th:text="|Date: ${#dates.format(fav_fight.date_fight, 'yyyy-MM-dd')}|"></span>
+
+
                     </div>
 
                     <!-- Luchador 2 -->

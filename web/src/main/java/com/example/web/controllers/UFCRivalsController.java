@@ -179,6 +179,7 @@ public class UFCRivalsController {
         favFight.setId_fighter2(favFightDto.getId_fighter2());
         favFight.setPercentage_f1(favFightDto.getPercentage_f1());
         favFight.setPercentage_f2(favFightDto.getPercentage_f2());
+        favFight.setDate_fight(favFightDto.getDate_fight());
         ;
 
         favFightService.save(favFight);

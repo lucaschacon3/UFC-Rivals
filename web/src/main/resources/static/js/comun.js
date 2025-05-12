@@ -5,15 +5,19 @@ function onPageLoad() {
 }
 
 function setPreloader() {
+
     const preloader = document.getElementById('preloader');
 
-    // Espera un mínimo de 2 segundos antes de ocultar
+    // Espera 0,250 segundos después de que cargue
     setTimeout(() => {
         preloader.classList.add('opacity-0', 'pointer-events-none');
-        setTimeout(() => {
+
+        // Espera a que termine la transición de opacidad
+        preloader.addEventListener('transitionend', () => {
             preloader.style.display = 'none';
-        }, 500); // da tiempo a la transición
-    }, 300); // <-- ajusta este valor según lo que necesites
+        });
+    }, 250);
+
 }
 
 function menuToggleHeader() {
@@ -60,7 +64,7 @@ function setRandomPhrase() {
     const phrase = document.getElementById("random_phrases");
     if (phrase) {
         phrase.textContent = phrases[numRandom];
-    }else{
+    } else {
         phrase.textContent = "No phase available";
     }
 }

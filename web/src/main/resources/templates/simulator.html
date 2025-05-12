@@ -74,6 +74,7 @@
             const id_fighter2 = /*[[${fighter2.id_fighter ?: 0}]]*/ 'Id Fighter 2'
             const percent1Input = document.getElementById("percent1");
             const percent2Input = document.getElementById("percent2");
+            const date_fight = new Date().toISOString().split('T')[0];
 
             const percent1 = percent1Input && !isNaN(parseFloat(percent1Input.value))
                 ? parseFloat(percent1Input.value).toFixed(2)
@@ -85,7 +86,6 @@
 
 
             // Ahora puedes usar percent1 y percent2 con valores seguros
-
 
 
             document.getElementById('saveFightBtn').addEventListener('click', () => {
@@ -119,12 +119,19 @@
                                 id_fighter1: id_fighter1,
                                 id_fighter2: id_fighter2,
                                 percentage_f1: percent1,
-                                percentage_f2: percent2
+                                percentage_f2: percent2,
+                                date_fight: date_fight
                             })
                         })
                             .then(response => {
-                                if (!response.ok) throw new Error("Network error");
+                                if (!response.ok) throw new Error("Network error")
+                                const btn = document.getElementById('saveFightBtn')
+                                btn.innerText = "saved";
+                                btn.classList.add("text-gray-300", "border-gray-300");
+                                btn.disabled = true;
                                 return response.text();
+
+
                             })
                             .then(() => {
                                 Swal.fire({

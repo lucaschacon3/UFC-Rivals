@@ -18,14 +18,15 @@ public class FavFightRepository {
 
     public void save(FavFightDto favFight) {
         jdbcClient.sql("""
-            INSERT INTO fav_fight (id_user_app, id_fighter1, id_fighter2, percentage_f1, percentage_f2)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO fav_fight (id_user_app, id_fighter1, id_fighter2, percentage_f1, percentage_f2, date_fight)
+            VALUES (?, ?, ?, ?, ?,?)
         """)
                 .param(1, favFight.getId_user())
                 .param(2, favFight.getId_fighter1())
                 .param(3, favFight.getId_fighter2())
                 .param(4, favFight.getPercentage_f1())
                 .param(5, favFight.getPercentage_f2())
+                .param(6, favFight.getDate_fight())
                 .update();
     }
 
