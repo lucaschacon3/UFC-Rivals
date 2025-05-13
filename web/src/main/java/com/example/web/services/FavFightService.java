@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class FavFightService {
-    @Autowired
-    private FavFightRepository favFightRepository;
+
+    private final FavFightRepository favFightRepository;
+
+    public FavFightService(FavFightRepository favFightRepository) {
+        this.favFightRepository = favFightRepository;
+    }
 
     public void save(FavFightDto favFight) {
         favFightRepository.save(favFight);

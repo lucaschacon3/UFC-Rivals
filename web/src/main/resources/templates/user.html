@@ -67,9 +67,52 @@
                     cancelButtonText: 'No, thanks',
                     confirmButtonColor: '#E50F0F'
                 }).then((result) => {
+                    const new_username = document.getElementById('new_username').value;
+                    const new_email = document.getElementById('new_email').value;
+                    const new_password = document.getElementById('new_password').value;
+                    const confirm_new_password = document.getElementById('confirm_new_password').value;
+
+
                     if (result.isConfirmed) {
-                        document.querySelector('form').submit();
+                        fetch('/user/update', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                new_username: new_username,
+                                new_email: new_email,
+                                new_password: new_password,
+                                confirm_new_password: confirm_new_password
+                            })
+                        })
+                            .then(async response => {
+                                const message = await response.text(); // obtenemos el mensaje (éxito o error)
+                                if (!response.ok) {
+                                    throw new Error(message); // lo lanzamos como error para el catch
+                                }
+                                return message; // mensaje de éxito
+                            })
+                            .then(message => {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Saved!',
+                                    text: message || 'Your account has been saved, Bye.',
+                                    confirmButtonColor: '#E50F0F'
+                                }).then(() => {
+                                    window.location.href = "/logout";
+                                });
+                            })
+                            .catch(error => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: error.message || 'Something went wrong.',
+                                    confirmButtonColor: '#E50F0F'
+                                });
+                            });
                     }
+
                 });
             });
 
@@ -102,23 +145,23 @@
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
             <summary class="cursor-pointer text-lg font-medium">Change Username</summary>
             <div class="mt-4 space-y-2">
-                <input name="new_username" type="text" placeholder="New Username" class="w-full p-2 border rounded">
+                <input id="new_username" name="new_username" type="text" placeholder="New Username" class="w-full p-2 border rounded">
             </div>
         </details>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
             <summary class="cursor-pointer text-lg font-medium">Change Email</summary>
             <div class="mt-4 space-y-2">
-                <input name="new_email" type="email" placeholder="New Email" class="w-full p-2 border rounded">
+                <input id="new_email" name="new_email" type="email" placeholder="New Email" class="w-full p-2 border rounded">
             </div>
         </details>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
             <summary class="cursor-pointer text-lg font-medium">Change Password</summary>
             <div class="mt-4 space-y-2">
-                <input name="current_password" type="password" placeholder="Current Password" class="w-full p-2 border rounded">
-                <input name="new_password" type="password" placeholder="New Password" class="w-full p-2 border rounded">
-                <input name="confirm_new_password" type="password" placeholder="Confirm New Password" class="w-full p-2 border rounded">
+                <input id="new_password" name="new_password" type="password" placeholder="New Password" class="w-full p-2 border rounded">
+                <input id="confirm_new_password" name="confirm_new_password" type="password" placeholder="Confirm New Password"
+                       class="w-full p-2 border rounded">
             </div>
         </details>
 

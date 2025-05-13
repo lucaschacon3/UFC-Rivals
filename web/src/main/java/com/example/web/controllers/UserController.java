@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
 public class UserController {
 
@@ -20,7 +22,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "login"; // Página de login (HTML)
+        return "login";
     }
 
     @GetMapping("/register")
@@ -64,6 +66,24 @@ public class UserController {
     public ResponseEntity<Void> deleteAccount(@AuthenticationPrincipal UserAppDto userApp) {
         userService.deleteUser(userApp.getId_user_app());
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/user/update")
+    @ResponseBody
+    public ResponseEntity<String> updateAccount(@AuthenticationPrincipal UserAppDto userApp, @RequestBody Map<String, Object> payload) {
+        String new_username = (String) payload.get("new_username");
+        String new_email = (String) payload.get("new_email");
+        String new_password = (String) payload.get("new_password");
+        String confirm_new_password = (String) payload.get("confirm_new_password");
+
+        try {
+            userService.updateUser(userApp,new_username, new_email, new_password, confirm_new_password);
+            return ResponseEntity.ok().build();
+        }catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
+
     }
 
     @PostMapping("/user/details")
