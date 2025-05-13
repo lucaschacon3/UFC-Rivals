@@ -29,6 +29,9 @@ public class UserAppService implements UserDetailsService {
         if (userAppRepository.findByUsername(username).isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
+        if (userAppRepository.findByEmail(email).isPresent()) {
+            throw new IllegalArgumentException("email already exists");
+        }
         if (!email.contains("@") || !email.contains(".") || email.length() < 6 || email.isBlank()) {
             throw new IllegalArgumentException("Invalid email address");
 
@@ -56,6 +59,9 @@ public class UserAppService implements UserDetailsService {
 
         if (new_email != null && !new_email.isBlank() && !new_email.equals(user_app.getEmail())) {
             validateEmail(new_email);
+            if (userAppRepository.findByEmail(new_email).isPresent()) {
+                throw new IllegalArgumentException("email already exists");
+            }
         } else {
             new_email = null; // para que no se actualice
         }

@@ -26,6 +26,15 @@ public class UserAppRepository {
                 .findFirst();
     }
 
+    public Optional<UserAppDto> findByEmail(String email) {
+        return jdbcClient.sql("SELECT * FROM user_app WHERE email = ?")
+                .params(List.of(email))
+                .query(UserAppDto.class)
+                .list()
+                .stream()
+                .findFirst();
+    }
+
     public void deleteUser(int id_user_app) {
         jdbcClient.sql("DELETE FROM user_app WHERE id_user_app = ?")
                 .param(1, id_user_app)

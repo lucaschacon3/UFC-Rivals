@@ -86,20 +86,4 @@ public class UserController {
 
     }
 
-    @PostMapping("/user/details")
-    public String userDetails(Model model, @RequestParam(required = false) String new_username,
-                              @RequestParam(required = false) String new_email,
-                              @RequestParam(required = false) String current_password,
-                              @RequestParam(required = false) String new_password,
-                              @RequestParam(required = false) String confirm_new_password) {
-
-        model.addAttribute("new_username", new_username);
-        model.addAttribute("new_email", new_email);
-        model.addAttribute("current_password", current_password);
-        model.addAttribute("new_password", new_password);
-        model.addAttribute("confirm_new_password", confirm_new_password);
-        model.addAttribute("page", "user");
-        return "user_details";
-    }
-
 }

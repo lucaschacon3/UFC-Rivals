@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+
     <th:block th:replace="~{fragments/head :: head}"></th:block>
     <script th:if="${fighter1 != null and fighter2 != null}" th:inline="javascript">
         /*<![CDATA[*/
@@ -184,20 +187,6 @@
         // Ahora sí, solo se añade el listener cuando está todo cargado
         fighter1Select.addEventListener('change', updateFighter2Options);
     });
-    function setRandomGifs() {
-        const images = [
-            '../img/waiting_fight_1.gif',
-            '../img/waiting_fight_2.gif',
-            '../img/waiting_fight_3.gif',
-            '../img/waiting_fight_4.gif',
-            '../img/waiting_fight_5.gif',
-        ];
-        const gif = document.getElementById('gif-random');
-        const randomIndex=Math.floor(Math.random()*5)
-        gif.setAttribute("src",`${images[randomIndex]}`);
-
-    }
-    window.addEventListener('load', setRandomGifs);
 </script>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
@@ -251,7 +240,7 @@
             </select>
         </div>
 
-        <!-- Botón de comparar -->
+        <!-- Botón de luchar -->
         <div class="w-full mb-4 md:w-1/4">
             <button type="submit"
                     class="w-full h-12 bg-[#E50F0F] hover:bg-red-700 text-white px-4 py-2">
@@ -259,8 +248,8 @@
             </button>
         </div>
     </form>
-    <div th:if="${fighter1 == null && fighter2 == null}">
-        <img src="" id="gif-random">
+    <div th:if="${fighter1 == null && fighter2 == null}" class="mt-16 mb-16">
+        <img src="../img/waiting_fight.gif" alt="">
     </div>
     <!-- Comparación de peleadores -->
     <div th:if="${fighter1 != null && fighter2 != null}" class="bg-white p-6 shadow-xl w-full max-w-6xl">
@@ -382,11 +371,26 @@
                 </div>
 
                 <p class="mt-2">
-                    <span th:text="${fighter1.name} + ' ' + ${fighter1.surname}"></span> vs
-                    <span th:text="${fighter2.name} + ' ' + ${fighter2.surname}"></span>
+                    <span th:text="${fighter1.name} + ' ' + ${fighter1.surname}" class="text-[#E50F0F]"></span> vs
+                    <span th:text="${fighter2.name} + ' ' + ${fighter2.surname}" class="text-blue-500"></span>
                 </p>
+
+                <div class="relative mt-8 mb-8 p-[3px] rounded-xl overflow-hidden
+              bg-gradient-to-r from-indigo-300 via-pink-300 via-teal-200 to-purple-300">
+                    <div class="rounded-xl bg-white p-8">
+                        <h2 class="text-center text-2xl font-bold
+                 bg-gradient-to-r from-indigo-400 via-pink-400 via-teal-300 to-purple-400
+                 bg-clip-text text-transparent font-sans">
+                            RivalsAI
+                        </h2>
+                        <p class="mt-4 text-center text-gray-600"
+                           th:text="|A very close fight between ${fighter1.name} ${fighter1.surname} and ${fighter2.name} ${fighter2.surname}, the result is the local fighter ${fighter1.name} ${fighter1.surname} have a ${#numbers.formatDecimal(percent1, 2, 2)}% to win via judge decision. |"></p>
+                    </div>
+                </div>
             </th:block>
         </div>
+
+
         <div class="flex justify-center items-center mt-8">
             <button
                     id="saveFightBtn"
