@@ -56,7 +56,15 @@
     <!-- Caja de login -->
     <div class="bg-white p-8 shadow-lg w-full max-w-full sm:max-w-md md:max-w-sm mx-2 sm:mx-auto relative z-10">
         <h2 class="text-2xl text-center mb-6">Login</h2>
-
+        <div th:if="${param.error}" class="w-full mx-auto mt-6 mb-8">
+            <div class="flex items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow"
+                 role="alert">
+                <svg class="fill-current w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M10 15a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-12a1 1 0 011 1v8a1 1 0 01-2 0V4a1 1 0 011-1z"/>
+                </svg>
+                <p class="text-sm">Invalid username or password</p>
+            </div>
+        </div>
         <a href="/oauth2/authorization/google"
            class="flex items-center justify-center gap-2 border border-gray-300 rounded px-4 py-2 mb-6 hover:shadow-md hover:bg-gray-50 transition-colors">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon" class="w-5 h-5">
@@ -64,30 +72,20 @@
         </a>
 
         <form action="/login" method="post">
-            <div class="mb-4">
+            <div class="mb-4 ">
                 <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                 <input type="text" id="username" name="username"
-                       class="w-full mt-1 p-2 border border-gray-300" required>
+                       class="w-full mt-1 p-2 border border-gray-300 rounded-md" required>
             </div>
             <div class="mb-6">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input type="password" id="password" name="password"
-                       class="w-full mt-1 p-2 border border-gray-300" required>
+                       class="w-full mt-1 p-2 border border-gray-300 rounded-md" required>
             </div>
 
             <div class="flex items-center justify-between">
                 <button type="submit" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700">Login</button>
                 <a href="/register" class="text-sm text-red-600 hover:underline">I don’t have an account</a>
-            </div>
-
-            <div th:if="${param.error}" class="w-full mx-auto mt-6">
-                <div class="flex items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow"
-                     role="alert">
-                    <svg class="fill-current w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M10 15a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-12a1 1 0 011 1v8a1 1 0 01-2 0V4a1 1 0 011-1z"/>
-                    </svg>
-                    <p class="text-sm">Invalid username or password</p>
-                </div>
             </div>
         </form>
     </div>
