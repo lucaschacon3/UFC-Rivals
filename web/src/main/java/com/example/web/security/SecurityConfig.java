@@ -22,9 +22,11 @@ public class SecurityConfig {
                 .securityMatcher(new AntPathRequestMatcher("/h2-console/**"))
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .csrf(csrf -> csrf.disable())
-                .headers(headers -> headers.frameOptions().disable());
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()));
+
         return http.build();
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
@@ -51,7 +53,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/user", true)
                 )
                 .userDetailsService(userDetailsService)
-                .csrf().disable();
+                .csrf(csrf -> csrf.disable());;
 
         return http.build();
     }

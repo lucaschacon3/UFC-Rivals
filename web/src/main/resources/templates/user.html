@@ -190,7 +190,7 @@
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
             <summary class="cursor-pointer text-lg font-medium w-full flex justify-between items-center">
                 Change Username
-                <span class="text-gray-400 ml-auto" th:text="${user_app.getUsername()}"></span>
+                <span class="text-gray-400 ml-auto" th:text="${user_app.username}"></span>
             </summary>
             <div class="mt-4 space-y-2">
                 <input id="new_username" name="new_username" type="text" placeholder="New Username" class="w-full p-2 border rounded">
@@ -201,7 +201,7 @@
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
             <summary class="cursor-pointer text-lg font-medium w-full flex justify-between items-center">
                 Change Email
-                <span class="text-gray-400 ml-auto" th:text="${user_app.getEmail()}"></span>
+                <span class="text-gray-400 ml-auto" th:text="${user_app.email}"></span>
             </summary>
             <div class="mt-4 space-y-2">
                 <input id="new_email" name="new_email" type="email" placeholder="New Email" class="w-full p-2 border rounded">
@@ -210,7 +210,7 @@
         </details>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
-            <summary class="cursor-pointer text-lg font-medium">Change Password</summary>
+            <summary class="cursor-pointer text-lg font-medium flex">Change Password </summary>
             <div class="mt-4 space-y-2">
                 <input id="new_password" name="new_password" type="password" placeholder="New Password" class="w-full p-2 border rounded">
                 <input id="confirm_new_password" name="confirm_new_password" type="password" placeholder="Confirm New Password"

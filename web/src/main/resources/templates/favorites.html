@@ -117,18 +117,18 @@
     <a th:href="@{/user}" class="text-blue-600 hover:text-blue-800 text-xl hover:underline">&larr; return to user</a>
 </div>
 <div class="flex flex-col justify-start">
-    <h2 class="text-3xl text-center mb-6 text-yellow-500">Favorites</h2>
+    <h2 class="text-3xl text-center mb-6 text-yellow-600">Favorites</h2>
 </div>
-<div class="min-h-screen flex flex-col items-center justify-start px-4 py-8">
+<div class="mb-32 flex flex-col items-center justify-start px-4 py-8">
     <!-- Section 1: Favorite Fighters -->
-    <section class="mb-10 w-full max-w-screen-lg">
+    <section class="w-full max-w-screen-lg">
         <h3 class="text-2xl text-center mb-6 text-yellow-500">Fighters</h3>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-4">
             <div th:each="fav_fighter : ${fav_fighters}">
                 <div th:each="fighter : ${fighters}" th:if="${fighter.id_fighter == fav_fighter.id_fighter}"
                      class="bg-gray-100 p-6 shadow-lg h-[400px] relative group flex flex-col items-center justify-center text-center">
 
-                    <img th:src="${fighter.image}" height="120" width="120" alt="fighter_img" class="mb-4">
+                    <img th:src="${fighter.image}" height="150" width="150" alt="fighter_img" class="mb-4">
                     <p th:text="|${fighter.name} &quot;${fighter.nickname}&quot; ${fighter.surname}|"></p>
 
                     <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -143,10 +143,10 @@
         </div>
     </section>
     <div th:if="${fav_fighters.isEmpty()}" class="w-3/5 mb-8">
-        <div class="flex items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow"
+        <div class="flex items-center bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded shadow"
              role="alert">
             <p class="text-sm text-center w-fit mx-auto">
-                <span class="text-xl mr-4">!</span>  No favorites fighters found.
+                <span class="text-xl mr-4">!</span>  No favorite fighters yet - start adding your favorites <a class="underline" th:href="@{/fighters}">fighters</a>!
             </p>
         </div>
     </div>
@@ -210,10 +210,10 @@
         </div>
     </section>
     <div th:if="${fav_fights.isEmpty()}" class="w-3/5">
-        <div class="flex items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow"
+        <div class="flex items-center bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded shadow"
              role="alert">
             <p class="text-sm text-center w-fit mx-auto">
-                <span class="text-xl mr-4">!</span>  No favorites fights found.
+                <span class="text-xl mr-4">!</span> No favorite fights yet - start adding your <a class="underline" th:href="@{/simulator}">simulated fights</a>!
             </p>
 
         </div>
