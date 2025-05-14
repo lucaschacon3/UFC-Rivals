@@ -56,28 +56,35 @@ public class UserController {
 
     @GetMapping("/user")
     public String user(Model model, @AuthenticationPrincipal UserAppDto userApp) {
-        model.addAttribute("id_user_app", userApp.getId_user_app());
+        model.addAttribute("user_app", userApp);
         model.addAttribute("page", "user");
         return "user";
     }
 
     @PostMapping("/user/delete")
     @ResponseBody
-    public ResponseEntity<Void> deleteAccount(@AuthenticationPrincipal UserAppDto userApp) {
-        userService.deleteUser(userApp.getId_user_app());
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> deleteAccount(@AuthenticationPrincipal UserAppDto userApp, @RequestBody Map<String, Object> payload) {
+        String current_password = (String) payload.get("current_password");
+        try {
+            userService.deleteUser(userApp, current_password);
+            return ResponseEntity.ok().build();
+        }catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
     @PostMapping("/user/update")
     @ResponseBody
     public ResponseEntity<String> updateAccount(@AuthenticationPrincipal UserAppDto userApp, @RequestBody Map<String, Object> payload) {
+        String current_password = (String) payload.get("current_password");
         String new_username = (String) payload.get("new_username");
         String new_email = (String) payload.get("new_email");
         String new_password = (String) payload.get("new_password");
         String confirm_new_password = (String) payload.get("confirm_new_password");
 
         try {
-            userService.updateUser(userApp,new_username, new_email, new_password, confirm_new_password);
+            userService.updateUser(userApp,current_password,new_username, new_email, new_password, confirm_new_password);
             return ResponseEntity.ok().build();
         }catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

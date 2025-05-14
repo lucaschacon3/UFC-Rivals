@@ -26,38 +26,55 @@ public class UserAppService implements UserDetailsService {
     }
 
     public void registerUser(String username, String rawPassword, String email) {
-        if (userAppRepository.findByUsername(username).isPresent()) {
+        String normalizedUsername = username.toLowerCase();
+        String normalizedEmail = email.toLowerCase();
+
+        if (userAppRepository.findByUsername(normalizedUsername).isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
-        if (userAppRepository.findByEmail(email).isPresent()) {
-            throw new IllegalArgumentException("email already exists");
+        if (userAppRepository.findByEmail(normalizedEmail).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
         }
-        if (!email.contains("@") || !email.contains(".") || email.length() < 6 || email.isBlank()) {
-            throw new IllegalArgumentException("Invalid email address");
 
-        }
-        validateEmail(email);
+        validateEmail(normalizedEmail);
         validatePassword(rawPassword);
+
         UserAppDto user = new UserAppDto();
-        user.setUsername(username);
-        user.setEmail(email);  // Added email
-        user.setPassword(passwordEncoder.encode(rawPassword));  // Encoding the password
+        user.setUsername(normalizedUsername);
+        user.setEmail(normalizedEmail);
+        user.setPassword(passwordEncoder.encode(rawPassword));
         userAppRepository.save(user);
+
     }
 
-    public void deleteUser(Integer id_user_app) {
-        userAppRepository.deleteUser(id_user_app);
+    public void deleteUser(UserAppDto user_app, String current_password) {
+        if (!passwordEncoder.matches(current_password, user_app.getPassword())) {
+            throw new IllegalArgumentException("Password is not correct");
+        }
+        userAppRepository.deleteUser(user_app.getId_user_app());
     }
 
-    public void updateUser(UserAppDto user_app, String new_username, String new_email, String new_password, String confirm_new_password) {
+    public void updateUser(UserAppDto user_app, String current_password, String new_username, String new_email, String new_password, String confirm_new_password) {
 
-        if (new_username != null && !new_username.isBlank() && !new_username.equals(user_app.getUsername())) {
+        if (!passwordEncoder.matches(current_password, user_app.getPassword())) {
+            throw new IllegalArgumentException("Password is not correct");
+        }
+
+        if ((new_username == null || new_username.isBlank()) &&
+                (new_email == null || new_email.isBlank()) &&
+                (new_password == null || new_password.isBlank()) &&
+                (confirm_new_password == null || confirm_new_password.isBlank())) {
+
+            throw new IllegalArgumentException("At least one field must be filled to update user data");
+        }
+
+        if (new_username != null && !new_username.isBlank() && !(new_username.toLowerCase()).equals(user_app.getUsername())) {
             if (userAppRepository.findByUsername(new_username).isPresent()) {
                 throw new IllegalArgumentException("Username already exists");
             }
         }
 
-        if (new_email != null && !new_email.isBlank() && !new_email.equals(user_app.getEmail())) {
+        if (new_email != null && !new_email.isBlank() && !(new_email.toLowerCase()).equals(user_app.getEmail())) {
             validateEmail(new_email);
             if (userAppRepository.findByEmail(new_email).isPresent()) {
                 throw new IllegalArgumentException("email already exists");
@@ -78,8 +95,8 @@ public class UserAppService implements UserDetailsService {
 
         userAppRepository.updateUser(
                 user_app.getId_user_app(),
-                (new_username != null && !new_username.isBlank()) ? new_username : null,
-                new_email,
+                (new_username != null && !new_username.isBlank()) ? new_username.toLowerCase() : null,
+                (new_email != null) ? new_email.toLowerCase() : null,
                 new_password
         );
     }
@@ -87,7 +104,7 @@ public class UserAppService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserAppDto user = userAppRepository.findByUsername(username)
+        UserAppDto user = userAppRepository.findByUsername(username.toLowerCase())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         return new UserAppDto(

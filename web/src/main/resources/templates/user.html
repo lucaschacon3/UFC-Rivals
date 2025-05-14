@@ -7,98 +7,57 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             document.getElementById('delete-account').addEventListener('click', () => {
-                // Evento cuando el botón es presionado
                 Swal.fire({
                     title: 'Delete Account?',
-                    text: 'Would you like to delete your account?',
+                    text: 'Please confirm your password to delete your account:',
                     icon: 'warning',
+                    input: 'password',
+                    inputPlaceholder: 'Enter your current password',
+                    inputAttributes: {
+                        autocapitalize: 'off',
+                        autocorrect: 'off'
+                    },
                     showCancelButton: true,
                     confirmButtonColor: '#E50F0F',
                     cancelButtonColor: '#96979a',
-                    confirmButtonText: 'Yes, save it!',
+                    confirmButtonText: 'Yes, delete it',
                     cancelButtonText: 'No, thanks',
                     customClass: {
                         popup: 'rounded-2xl',
-                        title: 'text-lg ',
+                        title: 'text-lg',
                         confirmButton: 'px-4 py-2',
                         cancelButton: 'px-4 py-2',
+                    },
+                    preConfirm: (password) => {
+                        if (!password) {
+                            Swal.showValidationMessage('Password is required');
+                            return false;
+                        }
+                        return password;
                     }
                 }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Si el usuario confirma, realiza la acción con fetch
+                    if (result.isConfirmed && result.value) {
+                        const password = result.value;
 
                         fetch('/user/delete', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
-                            }
+                            },
+                            body: JSON.stringify({ current_password: password })
                         })
-                            .then(response => {
-                                if (!response.ok) throw new Error("Network error");
-                                return response.text();
+                            .then(async response => {
+                                const text = await response.text();
+                                if (!response.ok) {
+                                    throw new Error(text || "Something went wrong");
+                                }
+                                return text;
                             })
                             .then(() => {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Saved!',
-                                    text: 'Your account has been saved, Bye.',
-                                    confirmButtonColor: '#E50F0F'
-                                });
-                                window.location.href = "/logout"
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: 'Failed to delete the account.',
-                                    confirmButtonColor: '#E50F0F'
-                                });
-                            });
-                    }
-                });
-            });
-
-            document.getElementById('save-changes').addEventListener('click', function () {
-                Swal.fire({
-                    title: '¿Are you sure?',
-                    text: "You will update your user data",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, save it!',
-                    cancelButtonText: 'No, thanks',
-                    confirmButtonColor: '#E50F0F'
-                }).then((result) => {
-                    const new_username = document.getElementById('new_username').value;
-                    const new_email = document.getElementById('new_email').value;
-                    const new_password = document.getElementById('new_password').value;
-                    const confirm_new_password = document.getElementById('confirm_new_password').value;
-
-
-                    if (result.isConfirmed) {
-                        fetch('/user/update', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                new_username: new_username,
-                                new_email: new_email,
-                                new_password: new_password,
-                                confirm_new_password: confirm_new_password
-                            })
-                        })
-                            .then(async response => {
-                                const message = await response.text(); // obtenemos el mensaje (éxito o error)
-                                if (!response.ok) {
-                                    throw new Error(message); // lo lanzamos como error para el catch
-                                }
-                                return message; // mensaje de éxito
-                            })
-                            .then(message => {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Saved!',
-                                    text: message || 'Your account has been saved, Bye.',
+                                    title: 'Deleted!',
+                                    text: 'Your account has been deleted. Bye.',
                                     confirmButtonColor: '#E50F0F'
                                 }).then(() => {
                                     window.location.href = "/logout";
@@ -108,14 +67,99 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error!',
-                                    text: error.message || 'Something went wrong.',
+                                    text: error.message || 'Failed to delete the account.',
                                     confirmButtonColor: '#E50F0F'
                                 });
                             });
-                    }
 
+                    }
                 });
             });
+
+
+            document.getElementById('save-changes').addEventListener('click', function () {
+                Swal.fire({
+                    title: 'Confirm Password',
+                    input: 'password',
+                    inputLabel: 'Please enter your current password to confirm changes:',
+                    inputPlaceholder: 'Current password',
+                    inputAttributes: {
+                        autocapitalize: 'off',
+                        autocorrect: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Continue',
+                    cancelButtonText: 'Cancel',
+                    confirmButtonColor: '#E50F0F',
+                    preConfirm: (password) => {
+                        if (!password) {
+                            Swal.showValidationMessage('Password is required');
+                        }
+                        return password;
+                    }
+                }).then((result) => {
+                    if (!result.isConfirmed) return;
+
+                    const current_password = result.value;
+                    const new_username = document.getElementById('new_username').value;
+                    const new_email = document.getElementById('new_email').value;
+                    const new_password = document.getElementById('new_password').value;
+                    const confirm_new_password = document.getElementById('confirm_new_password').value;
+
+                    // Confirm again that the user wants to proceed
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You will update your user data",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, save it!',
+                        cancelButtonText: 'No, thanks',
+                        confirmButtonColor: '#E50F0F'
+                    }).then((finalResult) => {
+                        if (finalResult.isConfirmed) {
+                            fetch('/user/update', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    current_password: current_password,
+                                    new_username: new_username,
+                                    new_email: new_email,
+                                    new_password: new_password,
+                                    confirm_new_password: confirm_new_password
+                                })
+                            })
+                                .then(async response => {
+                                    const message = await response.text();
+                                    if (!response.ok) {
+                                        throw new Error(message);
+                                    }
+                                    return message;
+                                })
+                                .then(message => {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Saved!',
+                                        text: message || 'Your account has been updated.',
+                                        confirmButtonColor: '#E50F0F'
+                                    }).then(() => {
+                                        window.location.href = "/logout";
+                                    });
+                                })
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error!',
+                                        text: error.message || 'Something went wrong.',
+                                        confirmButtonColor: '#E50F0F'
+                                    });
+                                });
+                        }
+                    });
+                });
+            });
+
 
 
         });
@@ -144,17 +188,25 @@
         <h2 class="text-2xl mb-6">User Settings</h2>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
-            <summary class="cursor-pointer text-lg font-medium">Change Username</summary>
+            <summary class="cursor-pointer text-lg font-medium w-full flex justify-between items-center">
+                Change Username
+                <span class="text-gray-400 ml-auto" th:text="${user_app.getUsername()}"></span>
+            </summary>
             <div class="mt-4 space-y-2">
                 <input id="new_username" name="new_username" type="text" placeholder="New Username" class="w-full p-2 border rounded">
             </div>
+
         </details>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
-            <summary class="cursor-pointer text-lg font-medium">Change Email</summary>
+            <summary class="cursor-pointer text-lg font-medium w-full flex justify-between items-center">
+                Change Email
+                <span class="text-gray-400 ml-auto" th:text="${user_app.getEmail()}"></span>
+            </summary>
             <div class="mt-4 space-y-2">
                 <input id="new_email" name="new_email" type="email" placeholder="New Email" class="w-full p-2 border rounded">
             </div>
+
         </details>
 
         <details class="mb-4 bg-gray-100 rounded-lg shadow p-4">
