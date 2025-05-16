@@ -52,7 +52,7 @@
                         <p>Losses: <span th:text="${fighter.total_losses}"></span></p>
                         <p>Draws: <span th:text="${fighter.total_draws}"></span></p>
                         <p class="text-blue-600">
-                            % Victory:
+                            Victory percentage:
                             <span th:text="${(fighter.total_fights > 0) ? (fighter.total_wins * 100 / fighter.total_fights) + '%' : 'N/A'}"></span>
                         </p>
                     </div>
