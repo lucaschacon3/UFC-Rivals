@@ -32,7 +32,7 @@ public class OpenAIController {
 
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while processing chat request: " + e.getMessage());
+                    .body("Error while processing chat request: " + e.getMessage()+" reload the page please");
         }
     }
 
