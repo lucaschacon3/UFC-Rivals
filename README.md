@@ -3,12 +3,10 @@
 ![Status](https://img.shields.io/badge/status-stable-brightgreen)
 ![Build Status](https://img.shields.io/github/workflow/status/lucaschacon3/ufc-rivals/CI?label=Build)
 
-Claro, aquí tienes el contenido completo listo para pegar en tu archivo `README.md`, todo en formato Markdown:
 
-````markdown
 # 🥊 UFC Rivals – Despliegue en Linux
 
-Sigue estos pasos para desplegar la aplicación **UFC Rivals** en un entorno Linux.
+Pasos para desplegar la aplicación **UFC Rivals** en un entorno Linux, utilizando variables de entorno que normalmente defines desde IntelliJ.
 
 ---
 
@@ -27,7 +25,7 @@ sudo apt update
 sudo apt install openjdk-21-jdk maven
 ````
 
-Verifica las instalaciones:
+Verifica que todo esté instalado correctamente:
 
 ```bash
 java -version
@@ -45,30 +43,25 @@ git clone https://github.com/yourusername/ufc-rivals.git
 cd ufc-rivals
 ```
 
-2. **Copia el archivo de variables de entorno** (por ejemplo, `.env`) al directorio raíz del proyecto.
+2. **Define las variables de entorno necesarias**
 
-3. **Exporta las variables de entorno**:
+Contacta conmigo para acceder a las variables de entorno.
 
-```bash
-export $(cat .env | xargs)
-```
-
-> 📝 Asegúrate de que tu archivo `.env` tenga el formato:
->
-> ```
-> VAR1=value1
-> VAR2=value2
-> ```
-
-4. **Construye el archivo `.jar`**:
+3. **Construye el proyecto**:
 
 ```bash
 mvn clean package
 ```
 
-5. **Ejecuta la aplicación**:
+4. **Ejecuta la aplicación**:
 
 ```bash
-java -jar target/ufc-rivals-0.0.1
+java -jar target/ufc-rivals-0.0.1-SNAPSHOT.jar
+```
+
+La aplicación estará disponible en:
+
+```
+http://localhost:8080
 ```
 
