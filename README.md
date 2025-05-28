@@ -4,7 +4,7 @@
 ![Build Status](https://img.shields.io/github/workflow/status/lucaschacon3/ufc-rivals/CI?label=Build)
 
 
-# 🥊 UFC Rivals – Despliegue en Linux
+# Despliegue UFC-Rivals
 
 Pasos para desplegar la aplicación **UFC Rivals** en un entorno Linux, utilizando variables de entorno que normalmente defines desde IntelliJ.
 
@@ -43,9 +43,7 @@ git clone https://github.com/yourusername/ufc-rivals.git
 cd ufc-rivals
 ```
 
-2. **Define las variables de entorno necesarias**
-
-Contacta conmigo para acceder a las variables de entorno.
+2. **Define las variables de entorno necesarias (contacta conmigo)**
 
 3. **Construye el proyecto**:
 
