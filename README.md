@@ -1,14 +1,20 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Java](https://img.shields.io/badge/java-21-blue.svg)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen)
-![Build Status](https://img.shields.io/github/workflow/status/lucaschacon3/ufc-rivals/CI?label=Build)
 
+# Puedes ver la aplicación aquí:
 
-# Despliegue UFC-Rivals
+## Servidor Heroku
+https://ufc-rivals-cd6647701d82.herokuapp.com/
+
+## Servidor propìo
+http://ufc.rivals.mooo.com/
+
+---
+# Despliegue local
 
 Pasos para desplegar la aplicación **UFC Rivals** en un entorno Linux, utilizando variables de entorno que normalmente defines desde IntelliJ.
 
----
 
 ## ✅ Requisitos
 
@@ -39,7 +45,7 @@ mvn -v
 1. **Clona el repositorio**:
 
 ```bash
-git clone https://github.com/yourusername/ufc-rivals.git
+https://github.com/lucaschacon3/UFC-Rivals
 cd ufc-rivals
 ```
 
@@ -57,9 +63,9 @@ mvn clean package
 java -jar target/ufc-rivals-0.0.1-SNAPSHOT.jar
 ```
 
-La aplicación estará disponible en:
+La aplicación estará disponible en el puerto 80 (si te da problemas de seguridad cambia el puerto al 8080 desde application.properties):
 
 ```
-http://localhost:8080
+http://localhost
 ```
 
